@@ -50,14 +50,16 @@ for (let m = new Date(start); m <= end; m.setUTCMonth(m.getUTCMonth() + 1)) {
   add("demo-checking", D(26), -amt(380, 620), "HARBOR CARD PAYMENT", null, "LOAN_PAYMENTS", "LOAN_PAYMENTS_CREDIT_CARD_PAYMENT");
   for (const w of [1, 8, 15, 22, 29]) {
     const d = Math.min(w + Math.floor(rand() * 3), 28);
-    add("demo-card", D(d), -amt(64, 118), pick(["TRADER JOE'S #512", "KROGER #0331"]), null, "FOOD_AND_DRINK", "FOOD_AND_DRINK_GROCERIES");
+    add("demo-card", D(d), -amt(64, 118), pick(["TRADER JOE'S #512", "KROGER #0331", "WALMART SUPERCENTER #2214", "COSTCO WHSE #0417"]), null, "FOOD_AND_DRINK", "FOOD_AND_DRINK_GROCERIES");
     if (rand() < 0.8) add("demo-card", D(Math.min(d + 2, 28)), -amt(5.5, 7.5), "STARBUCKS STORE 1182", "Starbucks", "FOOD_AND_DRINK", "FOOD_AND_DRINK_COFFEE");
-    if (rand() < 0.6) add("demo-card", D(Math.min(d + 3, 28)), -amt(14, 42), pick(["CHIPOTLE 2291", "THAI BASIL KITCHEN", "DOORDASH*NOODLE BAR"]), null, "FOOD_AND_DRINK", "FOOD_AND_DRINK_RESTAURANT");
-    if (rand() < 0.5) add("demo-card", D(Math.min(d + 1, 28)), -amt(32, 48), "SHELL OIL 57442", "Shell", "TRANSPORTATION", "TRANSPORTATION_GAS");
+    if (rand() < 0.6) add("demo-card", D(Math.min(d + 3, 28)), -amt(14, 42), pick(["CHIPOTLE 2291", "PANERA BREAD #6021", "DOORDASH*CHIPOTLE", "UBER *EATS"]), null, "FOOD_AND_DRINK", "FOOD_AND_DRINK_RESTAURANT");
+    if (rand() < 0.5) add("demo-card", D(Math.min(d + 1, 28)), -amt(32, 48), pick(["SHELL OIL 57442", "CHEVRON 0093127"]), null, "TRANSPORTATION", "TRANSPORTATION_GAS");
   }
   add("demo-card", D(11), -amt(25, 140), pick(["TARGET T-1450", "AMAZON MKTPL*2K4"]), null, "GENERAL_MERCHANDISE", "GENERAL_MERCHANDISE_OTHER_GENERAL_MERCHANDISE");
   add("demo-card", D(24), -amt(15, 90), "AMAZON MKTPL*7Q1", null, "GENERAL_MERCHANDISE", "GENERAL_MERCHANDISE_ONLINE_MARKETPLACES");
-  add("demo-card", D(7), -amt(22, 38), "SUDS LAUNDROMAT", null, "GENERAL_SERVICES", "GENERAL_SERVICES_OTHER_GENERAL_SERVICES");
+  add("demo-card", D(7), -amt(22, 38), "UBER *TRIP", "Uber", "TRANSPORTATION", "TRANSPORTATION_TAXIS_AND_RIDE_SHARES");
+  if (mo % 3 === 0) add("demo-card", D(13), -amt(30, 160), "THE HOME DEPOT #4410", "The Home Depot", "HOME_IMPROVEMENT", "HOME_IMPROVEMENT_HARDWARE");
+  add("demo-card", D(6), -2.99, "APPLE.COM/BILL", "Apple", "ENTERTAINMENT", "ENTERTAINMENT_OTHER_ENTERTAINMENT");
   if (mo % 2 === 0) add("demo-card", D(19), -amt(28, 45), "GREAT CLIPS #88", "Great Clips", "PERSONAL_CARE", "PERSONAL_CARE_HAIR_AND_BEAUTY");
   add("demo-savings", D(28), Math.round(amt(9, 12) * 100) / 100, "INTEREST PAYMENT", null, "INCOME", "INCOME_INTEREST_EARNED");
 }
