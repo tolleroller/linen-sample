@@ -1,0 +1,28 @@
+{
+  "name": "Liněn",
+  "short_name": "Liněn",
+  "start_url": "/linen-sample/demo/",
+  "display": "standalone",
+  "background_color": "#f4efe6",
+  "theme_color": "#f4efe6",
+  "icons": [
+    {
+      "src": "/linen-sample/demo/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/linen-sample/demo/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/linen-sample/demo/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "id": "/",
+  "scope": "/",
+  "description": "A tranquil money app you run yourself."
+}

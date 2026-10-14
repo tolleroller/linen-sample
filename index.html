@@ -1,4 +1,4 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name=viewport content="width=device-width,initial-scale=1"><title>Liněn · Personal finance</title>
+<!doctype html><html><head><meta charset="utf-8"><meta name=viewport content="width=device-width,initial-scale=1"><title>Liněn · Your own personal finance app</title><meta name=description content="Your own personal finance app, set up with Grok's help. No coding needed, no subscriptions, no ads."><meta property="og:title" content="Liněn · Your own personal finance app"><meta property="og:description" content="Set up with Grok's help. No coding needed.">
 <link rel=icon type="image/png" href="brand/linen-icon.png"><link rel=apple-touch-icon href="brand/linen-icon.png"><meta property="og:image" content="https://tolleroller.github.io/linen-sample/brand/og.jpg">
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel=stylesheet><style>
 :root{--ink:#2c241c;--olive:#8a7d6e;--rt:#c9a48a;--teal:#5f9c98;--slate:#6f86a8;--clay:#c2714f;--gold:#c9a24e;--rose:#c98a9e;--paper:#f4efe6;--card:#fffaf3;--line:#e4d9cc}
@@ -39,21 +39,22 @@ td:not(:first-child),th:not(:first-child){text-align:center;width:110px}.yes{col
 footer{margin-top:50px;padding:22px 56px 30px;font-size:14px;font-style:italic;border-top:2px solid transparent;border-image:linear-gradient(90deg,var(--rose),var(--gold),var(--clay),var(--slate),var(--teal)) 1}
 @media(max-width:640px){.wrap{padding:0 20px}nav{padding:12px 20px}h1{font-size:35px}.lead{font-size:17px}h2{font-size:28px}.logo{margin-top:14px;border-radius:12px}
 .hero{flex-direction:column;align-items:center}.car{width:min(300px,100%)}.price{grid-template-columns:1fr}footer{padding:20px}td:not(:first-child),th:not(:first-child){width:60px}}
+.live{background:var(--teal);color:#fff;box-shadow:inset 0 -3px 0 #3f7d79}.trylink{text-align:center;margin-top:10px}.trylink a{color:var(--teal);font-style:italic;font-weight:600;text-decoration:none;border-bottom:1px solid var(--teal)}
 </style></head><body><div class=page>
 <nav><a class=mark href="#"><img src="brand/linen-icon.png" alt="Liněn"><b>Liněn</b></a><a class=lnk href="https://github.com/tolleroller/linen-sample">Free sample</a></nav>
 <div class=wrap>
 <div class=top>
 <img class=logo src="brand/header.png" alt="Liněn · Personal finance">
-<div style="margin-top:26px" class=lbl>Template kit · Personal finance</div>
+<div style="margin-top:26px" class=lbl>Your own personal finance app</div>
 <h1>I vibe coded my way to the <em class=c>Nirvana</em> of personal finance apps.</h1>
 <p class=lead>An app <em class=c>you own</em>. No more monthly subscriptions or ads cluttering your experience. Make it fully yours. Connect it to Grok and you've got a <strong>personal finance coach</strong>. A seamless experience on a platform <em class=g>you control</em>.</p>
 <div class=chips><span class=chip style="color:var(--teal);border-color:var(--teal)">Goals</span><span class=chip style="color:var(--slate);border-color:var(--slate)">Budgets</span><span class=chip style="color:var(--clay);border-color:var(--clay)">Splits</span><span class=chip style="color:var(--gold);border-color:var(--gold)">Coaching</span><span class=chip style="color:var(--rose);border-color:var(--rose)">On your phone</span></div>
-<div class=btns><span class="btn p" aria-disabled=true>Full kit · $50 · <small>Coming soon</small></span><a class="btn s" href="https://github.com/tolleroller/linen-sample">Download free sample</a></div>
-<div class=note>Ships with made-up demo data only. Your finances stay in your own setup.</div>
+<div class=btns><a class="btn live" href="demo/">Try it live →</a><span class="btn p" aria-disabled=true>Full app · $50 · <small>Coming soon</small></span><a class="btn s" href="https://github.com/tolleroller/linen-sample">Free sample</a></div>
+<div class=note>Set up with Grok's help, no coding needed. The live demo uses made-up numbers only.</div>
 </div>
 
 <hr class=rule>
-<div class=sec><span class=lbl>A look inside</span><h2>Swipe through the <em class=c>good parts</em></h2><p class=sub>Every screen below is the demo, with a made-up person named Sam.</p></div>
+<div class=sec><span class=lbl>A look inside</span><h2>Swipe through the <em class=c>good parts</em></h2><p class=sub>Every screen below uses made-up numbers for a pretend person named Sam.</p></div>
 <div class=hero>
  <div class=car>
   <div class=phone><div class=track>
@@ -70,6 +71,7 @@ footer{margin-top:50px;padding:22px 56px 30px;font-size:14px;font-style:italic;b
   </div></div>
   <div class=ctl><button class=arr data-d=-1 aria-label="Previous">‹</button><span class=dots></span><button class=arr data-d=1 aria-label="Next">›</button></div>
   <div class=cap><b></b><span></span></div>
+  <div class=trylink><a href="demo/">Try the live demo on your phone →</a></div>
  </div>
  <div class=side>
   <div class=feat style="--k:var(--teal)"><b>Goals with <i>rings</i></b><p>Emergency fund, buffers, savings goals, and a what-if finish date. Tranquil progress, no streaks.</p></div>
@@ -81,22 +83,22 @@ footer{margin-top:50px;padding:22px 56px 30px;font-size:14px;font-style:italic;b
 </div>
 
 <hr class=rule>
-<div class=sec><span class=lbl>Compare</span><h2>Free sample or <em class=c>full kit</em></h2></div>
-<table><tr><th></th><th>Sample</th><th>Kit</th></tr>
+<div class=sec><span class=lbl>Compare</span><h2>Free sample or <em class=c>full app</em></h2></div>
+<table><tr><th></th><th>Sample</th><th>Full app</th></tr>
 <tr><td>App look: colors, fonts, layout</td><td class=yes>✓</td><td class=yes>✓</td></tr>
 <tr><td>Home and Activity screens</td><td class=yes>✓</td><td class=yes>✓</td></tr>
 <tr><td>Budgets with limits and bars</td><td class=no>—</td><td class=yes>✓</td></tr>
 <tr><td>Split charges and category rules</td><td class=no>—</td><td class=yes>✓</td></tr>
 <tr><td>Goals: rings, what-if, deeper analysis</td><td class=no>—</td><td class=yes>✓</td></tr>
 <tr><td>Coaching notes and a guide to writing them</td><td class=no>—</td><td class=yes>✓</td></tr>
-<tr><td>Demo data and step-by-step setup guide</td><td>Basic</td><td class=yes>✓</td></tr>
+<tr><td>Demo numbers and a step-by-step setup with Grok</td><td>Basic</td><td class=yes>✓</td></tr>
 <tr><td>Fixes for 90 days</td><td class=no>—</td><td class=yes>✓</td></tr></table>
 
 <hr class=rule>
 <div class=sec><span class=lbl>Pricing</span><h2>Simple, <em class=g>one time</em></h2></div>
 <div class=price>
- <div class=pc style="--k:var(--teal)"><div class=lbl>Free sample</div><div class=amt>$0 <em>to try</em></div><p class=note>The look and two screens with demo data. See how it's built before you buy.</p></div>
- <div class=pc style="--k:var(--clay)"><div class=lbl>Template kit</div><div class=amt>$50 <em>coming soon</em></div><p class=note>Everything: all screens, the coaching notes, the setup guide, and 90 days of fixes.</p></div>
+ <div class=pc style="--k:var(--teal)"><div class=lbl>Free sample</div><div class=amt>$0 <em>to try</em></div><p class=note>The look and two screens with made-up numbers. Try it before you buy.</p></div>
+ <div class=pc style="--k:var(--clay)"><div class=lbl>Full app</div><div class=amt>$50 <em>coming soon</em></div><p class=note>Every screen, the coaching notes, guided setup with Grok, and 90 days of fixes.</p></div>
 </div>
 <div class=early><b>Early buyers: <em class=c>50% off</em></b> if you post about it. Details at launch.</div>
 
@@ -104,7 +106,7 @@ footer{margin-top:50px;padding:22px 56px 30px;font-size:14px;font-style:italic;b
 <div class=sec><span class=lbl>Questions</span><h2>Good to <em class=c>know</em></h2></div>
 <div class=faq>
 <b>Does it connect to my bank?</b><p>Not out of the box. It reads a file you export from your bank, so your data never sits on someone else's computer.</p>
-<b>Do I need to know how to code?</b><p>No. The kit comes with a copy-and-paste prompt so an AI assistant can set it up and put it online for you, free.</p>
+<b>Do I need to know how to code?</b><p>No. You paste one message into Grok and it sets everything up and puts it online for you, free. You just answer a few questions.</p>
 <b>Is the coaching financial advice?</b><p>No. Liněn and Marcus are educational tools, not a licensed financial adviser.</p>
 </div>
 </div>
