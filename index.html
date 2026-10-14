@@ -1,0 +1,105 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Liněn: a calm personal-finance app you run yourself</title>
+<meta name="description" content="Liněn is a calm, phone-first personal-finance app template: budgets, goals with rings, splits and plain-English coaching. Free sample with demo data. Built with Grok, not affiliated with xAI.">
+<meta property="og:type" content="website"><meta property="og:title" content="Liněn: a calm personal-finance app you run yourself">
+<meta property="og:description" content="I vibe coded my way to the Nirvana of personal finance apps. Free sample with demo data.">
+<meta property="og:image" content="https://tolleroller.github.io/linen-sample/og.jpg"><meta property="og:url" content="https://tolleroller.github.io/linen-sample/">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://tolleroller.github.io/linen-sample/og.jpg">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,520;8..60,600&display=swap" rel=stylesheet><style>
+:root{--teal:#3f9e9f;--slate:#6b84ad;--clay:#df7a5e;--gold:#d1a75a;--rose:#c98a9e;--ink:#2c241c;--gray:#8a7d6e;--tint:#f7efe8;--tan:#b08a72;--line:#e4d9cc;--paper:#f4efe6;--card:#fffaf3}
+*{box-sizing:border-box}body{margin:0;width:780px;background:var(--paper);color:var(--ink);font-family:Figtree,sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{padding:0 56px}.serif{font-family:"Source Serif 4",serif;font-weight:600}
+nav{display:flex;justify-content:space-between;align-items:center;padding:22px 56px;border-bottom:1px solid var(--line)}
+nav b{font-family:"Source Serif 4",serif;font-size:24px}nav span{color:var(--gray);font-size:14px}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--tan);font-weight:600}
+h1{font-family:"Source Serif 4",serif;font-weight:600;font-size:52px;line-height:1.08;margin:12px 0 14px}
+.lead{font-size:18px;color:#5e5348;max-width:600px}
+.btns{display:flex;gap:12px;margin:22px 0 10px}.btn{padding:12px 20px;border-radius:12px;font-weight:600;font-size:15px}
+.p{background:var(--ink);color:var(--paper)}.s{background:var(--card);border:1px solid var(--line)}
+.note{font-size:13px;color:var(--gray)}
+.hero{display:flex;gap:22px;margin:34px 0 10px;align-items:flex-start}
+.phone{width:300px;border-radius:30px;background:var(--paper);border:8px solid #2c241c;padding:16px 14px;flex-shrink:0;box-shadow:0 20px 40px -24px #2c241c55}
+.card{border-radius:14px;border:1px solid var(--line);background:var(--card);padding:12px 14px}
+.lbl{font-size:9.5px;text-transform:uppercase;letter-spacing:.06em;color:#9a8e80}
+.rings{display:flex;justify-content:space-between;margin:10px 0 6px}.rings div{text-align:center;font-size:10px;font-weight:600}
+.rings small{display:block;color:var(--tan);font-weight:600}
+.bar{height:6px;border-radius:9px;background:var(--line);margin-top:4px;overflow:hidden}.bar i{display:block;height:100%;border-radius:9px}
+.row{display:flex;justify-content:space-between;font-size:12.5px;margin-top:8px}
+.side{flex:1;display:grid;gap:12px}
+h2{font-family:"Source Serif 4",serif;font-weight:600;font-size:30px;margin:46px 0 14px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.feat{border-radius:14px;border:1px solid var(--line);background:var(--card);padding:16px}
+.feat b{display:flex;align-items:center;gap:8px;font-size:16px}.feat p{margin:6px 0 0;font-size:14px;color:var(--gray)}
+.dot{width:10px;height:10px;border-radius:50%}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;font-size:14px}
+th,td{padding:10px 14px;border-bottom:1px solid #ece3d6;text-align:left}th{font-weight:600;background:var(--tint)}td:not(:first-child),th:not(:first-child){text-align:center;width:120px}
+.yes{color:#4a9268;font-weight:700}.no{color:#c9bfb2}
+.price{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pc{border-radius:16px;border:1px solid var(--line);background:var(--card);padding:20px}.pc .amt{font-family:"Source Serif 4",serif;font-weight:600;font-size:40px}
+.early{margin-top:12px;border-radius:12px;background:var(--tint);padding:12px 16px;font-size:14px;color:#5e5348}
+.faq b{display:block;margin-top:14px}.faq p{margin:4px 0 0;color:var(--gray);font-size:15px}
+footer{margin-top:44px;padding:22px 56px 30px;border-top:1px solid var(--line);font-size:13px;color:var(--gray)}
+.car{width:300px;flex-shrink:0}.phone{padding:0;overflow:hidden;touch-action:pan-y;height:auto}.track{display:flex;transition:transform .35s ease}.track img{width:100%;flex-shrink:0;display:block;user-select:none}
+.ctl{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:12px}.arr{border:1px solid #e3d8ca;background:#fff;border-radius:50%;width:30px;height:30px;font-size:18px;color:var(--ink);cursor:pointer;line-height:1}
+.dots{display:flex;gap:7px}.dots i{width:7px;height:7px;border-radius:50%;background:#e3d8ca;cursor:pointer}.dots i.on{background:var(--tan)}.cap{text-align:center;font-size:12px;color:#8a7d6e;margin-top:6px}
+</style></head><body>
+<nav><b>Liněn</b><span>Free sample · Template kit</span></nav>
+<div class=wrap>
+<div style="margin-top:40px" class=eyebrow>Template kit · Personal finance</div>
+<h1>I vibe coded my way to the Nirvana of personal finance apps</h1>
+<p class=lead>Liněn is the full source of a personal-finance PWA: budgets, split transactions, category rules, goal rings, and a coaching bot with plain-English insights. AI-built, then refined by hand until it felt quiet.</p>
+<div class=btns><span class="btn p" style="opacity:.55;cursor:default" aria-disabled="true">Full kit · $50 · Coming soon</span><a class="btn s" style="text-decoration:none;color:inherit" href="https://github.com/tolleroller/linen-sample">Download free sample</a></div>
+<div class=note>The full kit isn't on sale yet. To hear when it launches, <a href="https://github.com/tolleroller/linen-sample" style="color:#b08a72">watch the sample repo</a> on GitHub.</div>
+<div class=note>Ships with demo data only. Your finances stay in your own setup.</div>
+
+<div class=hero>
+ <div class=car>
+  <div class=phone><div class=track><img src="landing-shots/home.png" alt="Home screen, demo data" draggable=false><img src="landing-shots/activity.png" alt="Activity screen, demo data" draggable=false><img src="landing-shots/budgets.png" alt="Budgets screen, demo data" draggable=false><img src="landing-shots/goals.png" alt="Goals screen, demo data" draggable=false><img src="landing-shots/wealth.png" alt="Wealth screen, demo data" draggable=false></div></div>
+  <div class=ctl><button class=arr data-d=-1 aria-label="Previous">‹</button><span class=dots></span><button class=arr data-d=1 aria-label="Next">›</button></div>
+  <div class=cap>Home</div>
+ </div>
+ <div class=side>
+  <div class=feat><b><i class=dot style="background:var(--teal)"></i>Goals with rings</b><p>Emergency fund, buffers, savings goals, and a what-if finish date. Calm progress, no streaks.</p></div>
+  <div class=feat><b><i class=dot style="background:var(--slate)"></i>Budgets that read at a glance</b><p>Thin bars, soft over/left colors, monthly limits from your own averages.</p></div>
+  <div class=feat><b><i class=dot style="background:var(--clay)"></i>Splits and category rules</b><p>Split a charge across categories. Merchant rules that remember, with undo.</p></div>
+  <div class=feat><b><i class=dot style="background:var(--gold)"></i>A coaching bot, in plain words</b><p>Weekly insights from one JSON file. Write your own, or have your AI write them.</p></div>
+  <div class=feat><b><i class=dot style="background:var(--rose)"></i>Installs like an app</b><p>A PWA for iPhone and Android, with home-screen icons that work.</p></div>
+ </div>
+</div>
+
+<h2>Free sample or full kit</h2>
+<table><tr><th></th><th>Sample</th><th>Kit</th></tr>
+<tr><td>App shell, theme, palette, fonts</td><td class=yes>✓</td><td class=yes>✓</td></tr>
+<tr><td>Home and Activity screens</td><td class=yes>✓</td><td class=yes>✓</td></tr>
+<tr><td>Budgets with limits and bars</td><td class=no>—</td><td class=yes>✓</td></tr>
+<tr><td>Split transactions and category rules</td><td class=no>—</td><td class=yes>✓</td></tr>
+<tr><td>Goals tab: rings, what-if, Deeper analysis</td><td class=no>—</td><td class=yes>✓</td></tr>
+<tr><td>Coaching format and prompt guide</td><td class=no>—</td><td class=yes>✓</td></tr>
+<tr><td>Demo data generator and deploy guide</td><td>Basic</td><td class=yes>✓</td></tr>
+<tr><td>Fixes for 90 days</td><td class=no>—</td><td class=yes>✓</td></tr></table>
+
+<h2>Pricing</h2>
+<div class=price>
+ <div class=pc><div class=lbl>Free sample</div><div class=amt>$0</div><p class=note>The shell, theme, and two screens with demo data. See how it's built before you buy.</p></div>
+ <div class=pc style="border-color:#d9c6b6"><div class=lbl>Template kit</div><div class=amt>$50</div><p class=note>Full source, all screens, the coaching format, the deploy guide, and 90 days of fixes.</p></div>
+</div>
+<div class=early><b style="color:var(--ink)">Early buyers: 50% off at launch</b>, if you're up for sharing what you build with it. A screenshot or a short post is plenty.</div>
+
+<h2>Questions</h2>
+<div class=faq>
+<b>Does it connect to my bank?</b><p>Not out of the box. It reads a snapshot file you produce, so your data never touches a server you don't control.</p>
+<b>What's it built with?</b><p>TypeScript, React, TanStack Start, Tailwind and Recharts. It deploys to Vercel or anywhere Node runs.</p>
+<b>Is the coaching financial advice?</b><p>No. Liněn and its coaching bot are educational tools, not a licensed financial adviser.</p>
+</div>
+</div>
+<footer>Liněn · Built with Grok, not affiliated with xAI. · Not financial advice. · All figures shown are demo data.</footer>
+<script>
+(()=>{const ph=document.querySelector('.car .phone'),tr=ph.querySelector('.track'),imgs=[...tr.children],dots=document.querySelector('.dots'),cap=document.querySelector('.cap');let i=0;
+imgs.forEach((_,k)=>{const d=document.createElement('i');d.onclick=()=>go(k);dots.appendChild(d)});
+function go(k){i=(k+imgs.length)%imgs.length;tr.style.transform=`translateX(${-100*i}%)`;[...dots.children].forEach((d,j)=>d.classList.toggle('on',j===i));cap.textContent=imgs[i].alt.split(' ')[0]}
+document.querySelectorAll('.arr').forEach(b=>b.onclick=()=>go(i+ +b.dataset.d));
+let x0=null;ph.addEventListener('pointerdown',e=>{x0=e.clientX});ph.addEventListener('pointerup',e=>{if(x0===null)return;const dx=e.clientX-x0;x0=null;if(Math.abs(dx)>40)go(i+(dx<0?1:-1))});
+ph.addEventListener('touchstart',e=>{x0=e.touches[0].clientX},{passive:true});ph.addEventListener('touchend',e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(dx)>40)go(i+(dx<0?1:-1))});
+document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(i-1);if(e.key==='ArrowRight')go(i+1)});go(0)})();
+</script>
+</body></html>
