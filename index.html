@@ -61,66 +61,73 @@ footer{margin-top:50px;padding:22px 56px 30px;font-size:14px;font-style:italic;b
 .vs b{display:block;margin-bottom:4px}.vs ul{margin:0;padding-left:18px}
 .solo{max-width:520px;margin:0 auto}
 @media(max-width:640px){.steps,.why,.vs{grid-template-columns:1fr}}
+
+nav .wm{height:40px;width:auto;border-radius:6px;mix-blend-mode:multiply;display:block}
+.navbtn{background:var(--clay);color:#fff;text-decoration:none;font-weight:600;font-size:15px;padding:7px 16px;border-radius:99px;box-shadow:inset 0 -2px 0 #9e5638}
+.chip.solid{background:var(--rose);border-color:var(--rose);color:#fff;font-weight:600;text-decoration:none}
+h1,h2,h3,.feat b,.step h3,.faq b,.cap b{text-wrap:balance}p,.lead,.sub,.note,.feat p,.step p,li,.early,footer{text-wrap:pretty}
+.feat b{display:block}.feat b i{margin-left:.15em}
+.tabs b{font-weight:600}
+@media(max-width:640px){nav .wm{height:34px}h2{font-size:27px}.sub{font-size:16.5px}.note{font-size:13.5px}}
 </style></head><body><div class=page>
-<nav><a class=mark href="#"><img src="brand/linen-icon.png" alt="Liněn"><b>Liněn</b></a><a class=lnk href="#try">Try it</a></nav>
+<nav><a class=mark href="#" aria-label="Liněn home"><img class=wm src="brand/wordmark.png" alt="Liněn · Personal finance"></a><a class=navbtn href="#try">Try it</a></nav>
 <div class=wrap>
 <div class=top>
 <img class=logo src="brand/header.png" alt="Liněn · Personal finance">
 <div style="margin-top:26px" class=lbl>Your own personal finance app</div>
 <h1>I vibe coded my way to the <em class=c>Nirvana</em> of personal finance apps.</h1>
-<p class=lead>An app <em class=c>you own</em>. No more monthly subscriptions or ads cluttering your experience. Make it fully yours. Connect it to Grok and you've got a <strong>personal finance coach</strong>. A seamless experience on a platform <em class=g>you control</em>.</p>
-<div class=chips><span class=chip style="color:var(--teal);border-color:var(--teal)">Goals</span><span class=chip style="color:var(--slate);border-color:var(--slate)">Budgets</span><span class=chip style="color:var(--clay);border-color:var(--clay)">Splits</span><span class=chip style="color:var(--gold);border-color:var(--gold)">Coaching</span><span class=chip style="color:var(--rose);border-color:var(--rose)">On your phone</span></div>
-<div class=btns><a class="btn live" href="#try">Try it right here ↓</a><span class="btn p" aria-disabled=true>Full app · $50 · <small>Coming soon</small></span></div>
-<div class=note>Set up with Grok's help, no coding needed. The demo below uses made-up numbers only.</div>
+<p class=lead>An app <em class=c>you own</em>. No more monthly subscriptions or ads cluttering your experience. Make it fully yours. Connect it to Grok and you've got a <strong>personal finance coach</strong>. A seamless experience on a platform <em class=g>you&nbsp;control</em>.</p>
+<div class=chips><span class=chip style="color:var(--teal);border-color:var(--teal)">Goals</span><span class=chip style="color:var(--slate);border-color:var(--slate)">Budgets</span><span class=chip style="color:var(--clay);border-color:var(--clay)">Splits</span><span class=chip style="color:var(--gold);border-color:var(--gold)">Coaching</span><a class="chip solid" href="#try">Try it on your phone ↓</a></div>
+<div class=btns><a class="btn live" href="#try">Try it right here&nbsp;↓</a><span class="btn p" aria-disabled=true>Full app · $50 · <small>Coming soon</small></span></div>
+<div class=note>Set up with Grok’s help, no coding needed.<br>The demo below uses made-up numbers&nbsp;only.</div>
 </div>
 
 
 <hr class=rule id=try>
-<div class=sec><span class=lbl>Try it right here</span><h2>The whole app, <em class=c>live on this page</em></h2><p class=sub>Tap around: Home, Activity, Budgets, Goals, Wealth. Every number belongs to Sam, a pretend person.</p></div>
+<div class=sec><span class=lbl>Try it right here</span><h2>The whole app, <em class=c>live on this&nbsp;page</em></h2><p class=sub>Tap around: <span class=tabs><b style="color:#6b84ad">Home</b>, <b style="color:#df7a5e">Activity</b>, <b style="color:#5fae7d">Budgets</b>, <b style="color:#3f9e9f">Goals</b>&nbsp;and&nbsp;<b style="color:#9488c4">Wealth</b>.</span> Every number belongs to&nbsp;Sam,&nbsp;a&nbsp;pretend&nbsp;person.</p></div>
 <div class=demo>
  <div class=dev id=dev><div class=frame><iframe src="app/" title="Liněn live demo with made-up numbers" loading=eager></iframe><button class=open onclick="dev.classList.add('full')">Tap to use full screen ⤢</button></div><button class=x aria-label="Close" onclick="dev.classList.remove('full')">✕</button>
  <div class=hint>Made-up numbers. Nothing here connects to a bank.</div></div>
  <div class=side>
-  <div class=feat style="--k:var(--teal)"><b>Goals with <i>rings</i></b><p>Emergency fund, buffer, travel, home and 401(k), with a what-if finish date. Tranquil progress, no streaks.</p></div>
-  <div class=feat style="--k:var(--slate)"><b>Budgets that <i>read at a glance</i></b><p>Thin bars, soft over/left colors, monthly limits from your own averages.</p></div>
-  <div class=feat style="--k:var(--clay)"><b>Splits and <i>category rules</i></b><p>Split a charge across categories. Merchant rules that remember, with undo.</p></div>
-  <div class=feat style="--k:var(--gold)"><b>Marcus, <i>your coach</i></b><p>A short note on your month, folded into one row on Home until you want it.</p></div>
-  <div class=feat style="--k:var(--rose)"><b>Lives on <i>your phone</i></b><p>Installs on your phone like an app, straight from the browser, with a proper home-screen icon.</p></div>
+  <div class=feat style="--k:var(--teal)"><b>Goals with <i>rings</i></b><p>Emergency fund, buffer, travel, home and 401(k), with a what-if finish date. Tranquil&nbsp;progress.</p></div>
+  <div class=feat style="--k:var(--slate)"><b>Budgets that <i>read at a&nbsp;glance</i></b><p>Thin bars, soft over/left colors, monthly limits from your own&nbsp;averages.</p></div>
+  <div class=feat style="--k:var(--clay)"><b>Splits and <i>category&nbsp;rules</i></b><p>Split a charge across categories, and set rules for where each store&nbsp;belongs.</p></div>
+  <div class=feat style="--k:var(--gold)"><b>Marcus, <i>your&nbsp;coach</i></b><p>Marcus can give simple coaching or deep financial analysis, because he’s connected to&nbsp;Grok.</p></div>
+  <div class=feat style="--k:var(--rose)"><b>Lives on <i>your&nbsp;phone</i></b><p>Installs on your phone like an app, straight from the browser, with a proper home-screen&nbsp;icon.</p></div>
  </div>
 </div>
 
 <hr class=rule>
-<div class=sec><span class=lbl>Get rolling</span><h2>Three steps, <em class=g>no coding</em></h2><p class=sub>About half an hour, start to finish.</p></div>
+<div class=sec><span class=lbl>Get rolling</span><h2>Three steps, <em class=g>no&nbsp;coding</em></h2><p class=sub>About half an hour, start to&nbsp;finish.</p></div>
 <div class=steps>
- <div class=step style="--k:var(--clay)"><svg width=34 height=34 viewBox="0 0 24 24" fill=none stroke="#c2714f" stroke-width=1.6 stroke-linecap=round><path d="M6 7h12l-1 12H7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg><div class=n>1</div><h3>Buy it</h3><p>One payment of $50. No subscription, no ads, ever.</p></div>
- <div class=step style="--k:var(--teal)"><svg width=34 height=34 viewBox="0 0 24 24" fill=none stroke="#5f9c98" stroke-width=1.6 stroke-linecap=round stroke-linejoin=round><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></svg><div class=n>2</div><h3>Paste one message into Grok</h3><p>Grok sets it up for you and puts it online, free. You just answer a few questions.</p><div class=msg>“Set up Liněn for me…”</div></div>
- <div class=step style="--k:var(--slate)"><svg width=34 height=34 viewBox="0 0 24 24" fill=none stroke="#6f86a8" stroke-width=1.6 stroke-linecap=round stroke-linejoin=round><rect x=7 y=2.5 width=10 height=19 rx=2.5 /><path d="M11 18.5h2"/><path d="M10 9l2-2 2 2M12 7v6"/></svg><div class=n>3</div><h3>Add it to your phone</h3><p>Save it to your home screen, then connect your banks. Your real numbers appear.</p></div>
+ <div class=step style="--k:var(--clay)"><svg width=34 height=34 viewBox="0 0 24 24" fill=none stroke="#c2714f" stroke-width=1.6 stroke-linecap=round><path d="M6 7h12l-1 12H7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg><div class=n>1</div><h3>Buy&nbsp;it</h3><p>One payment of $50. No subscription, no ads,&nbsp;ever.</p></div>
+ <div class=step style="--k:var(--teal)"><svg width=34 height=34 viewBox="0 0 24 24" fill=none stroke="#5f9c98" stroke-width=1.6 stroke-linecap=round stroke-linejoin=round><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></svg><div class=n>2</div><h3>Paste one message into&nbsp;Grok</h3><p>Grok sets it up for you and puts it online, free. You just answer a few&nbsp;questions.</p><div class=msg>“Set up Liněn for me…”</div></div>
+ <div class=step style="--k:var(--slate)"><svg width=34 height=34 viewBox="0 0 24 24" fill=none stroke="#6f86a8" stroke-width=1.6 stroke-linecap=round stroke-linejoin=round><rect x=7 y=2.5 width=10 height=19 rx=2.5 /><path d="M11 18.5h2"/><path d="M10 9l2-2 2 2M12 7v6"/></svg><div class=n>3</div><h3>Add it to your&nbsp;phone</h3><p>Save it to your home screen, then connect your banks. Your real numbers&nbsp;appear.</p></div>
 </div>
 
 <hr class=rule>
-<div class=sec><span class=lbl>Why Grok makes it better</span><h2>A money app that <em class=c>knows you</em></h2><p class=sub>Most finance apps are the same for everyone. Set up through Grok, Liněn is yours, and it has someone to talk to.</p></div>
+<div class=sec><span class=lbl>Why Grok makes it better</span><h2>A money app that <em class=c>knows&nbsp;you</em></h2><p class=sub>Most finance apps are the same for everyone. Set up through Grok, Liněn is yours, and it has someone to&nbsp;talk&nbsp;to.</p></div>
 <div class=why>
- <div class=feat style="--k:var(--gold)"><b>A coach who reads <i>your real numbers</i></b><p>Marcus looks at your actual balances and spending, not averages, and tells you what matters this week.</p></div>
- <div class=feat style="--k:var(--teal)"><b>Answers <i>in plain English</i></b><p>Ask “can I afford the trip in March?” or “why was September so high?” and get a straight answer.</p></div>
- <div class=feat style="--k:var(--clay)"><b>Change the app <i>just by asking</i></b><p>“Add a goal for a new car.” “Make dining its own budget.” Grok makes the change for you.</p></div>
- <div class=feat style="--k:var(--slate)"><b>A fresh note <i>every week</i></b><p>Your coaching updates weekly, so the advice keeps up with your life.</p></div>
+ <div class=feat style="--k:var(--gold)"><b>A coach who reads <i>your real&nbsp;numbers</i></b><p>Marcus looks at your actual balances and spending, not averages, and tells you what matters this&nbsp;week.</p></div>
+ <div class=feat style="--k:var(--teal)"><b>Answers <i>in plain&nbsp;English</i></b><p>Ask “can I afford the trip in March?” or “why was September so high?” and get a straight&nbsp;answer.</p></div>
+ <div class=feat style="--k:var(--clay)"><b>Change the app <i>just by&nbsp;asking</i></b><p>“Add a goal for a new car.” “Make dining its own budget.” Grok makes the change for&nbsp;you.</p></div>
+ <div class=feat style="--k:var(--slate)"><b>A fresh note <i>every&nbsp;week</i></b><p>Your coaching updates weekly, so the advice keeps up with your&nbsp;life.</p></div>
 </div>
 <div class=vs>
- <div class=a><b>A normal money app</b><ul><li>Monthly fee or ads</li><li>Same screens for everyone</li><li>Your data lives on their servers</li></ul></div>
- <div class=b><b>Liněn with Grok</b><ul><li>Pay once, it's yours</li><li>Shaped to you, change it by asking</li><li>Runs on a place you control</li></ul></div>
+ <div class=a><b>A normal money&nbsp;app</b><ul><li>Monthly fee or&nbsp;ads</li><li>Same screens for&nbsp;everyone</li><li>Your data lives on their&nbsp;servers</li></ul></div>
+ <div class=b><b>Liněn with&nbsp;Grok</b><ul><li>Pay once, it's&nbsp;yours</li><li>Shaped to you, change it by&nbsp;asking</li><li>Runs on a place you&nbsp;control</li></ul></div>
 </div>
 
 <hr class=rule>
-<div class=sec><span class=lbl>Pricing</span><h2>Simple, <em class=g>one time</em></h2></div>
-<div class="pc solo" style="--k:var(--clay)"><div class=lbl>Liněn</div><div class=amt>$50 <em>coming soon</em></div><p class=note>Every screen, Marcus the coach, guided setup with Grok, and 90 days of fixes.</p><div class=btns style="justify-content:flex-start;margin-bottom:0"><span class="btn p" aria-disabled=true>Full app · $50 · <small>Coming soon</small></span></div></div>
-<div class=early><b>Early buyers: <em class=c>50% off</em></b> if you post about it. Details at launch.</div>
+<div class=sec><span class=lbl>Pricing</span><h2>Simple, <em class=g>one&nbsp;time</em></h2></div>
+<div class="pc solo" style="--k:var(--clay)"><div class=lbl>Liněn</div><div class=amt>$50 <em>coming soon</em></div><p class=note>Every screen, Marcus the coach, guided setup with Grok, and 90 days of&nbsp;fixes.</p><div class=btns style="justify-content:flex-start;margin-bottom:0"><span class="btn p" aria-disabled=true>Full app · $50 · <small>Coming soon</small></span></div></div>
+<div class=early><b>Early buyers: <em class=c>50%&nbsp;off</em></b> if you post about it. Details&nbsp;at&nbsp;launch.</div>
 
 <hr class=rule>
 <div class=sec><span class=lbl>Questions</span><h2>Good to <em class=c>know</em></h2></div>
 <div class=faq>
-<b>Does it connect to my bank?</b><p>Yes, through Grok. You link your banks once in Grok, and Liněn reads your balances and transactions from there.</p>
-<b>Do I need to be technical?</b><p>No. You paste one message into Grok and it sets everything up and puts it online for you, free. You just answer a few questions.</p>
-<b>Is the coaching financial advice?</b><p>No. Liněn and Marcus are educational tools, not a licensed financial adviser.</p>
+<b>Does it connect to my&nbsp;bank?</b><p>Yes, through Grok. You link your banks once in Grok, and Liněn reads your balances and transactions from&nbsp;there.</p>
+<b>Do I need to be&nbsp;technical?</b><p>No. You paste one message into Grok and it sets everything up and puts it online for you, free. You just answer a few&nbsp;questions.</p>
 </div>
 </div>
 <footer>Liněn · Built with Grok, not affiliated with xAI. · Not financial advice. · All figures shown are demo data.</footer>
