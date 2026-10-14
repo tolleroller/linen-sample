@@ -69,6 +69,10 @@ h1,h2,h3,.feat b,.step h3,.faq b,.cap b{text-wrap:balance}p,.lead,.sub,.note,.fe
 .feat b{display:block}.feat b i{margin-left:.15em}
 .tabs b{font-weight:600}
 @media(max-width:640px){nav .wm{height:34px}h2{font-size:27px}.sub{font-size:16.5px}.note{font-size:13.5px}}
+.ask{display:grid;gap:18px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:14px;padding:18px 18px 20px}
+.grp+.grp{border-top:1px solid #ece3d6;padding-top:16px}.grp .gl{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--k);font-weight:600;margin-bottom:6px}
+.qs{display:grid;gap:6px}.q{font-size:17px;font-style:italic;color:var(--ink);text-wrap:balance;padding-left:14px;position:relative}.q:before{content:"";position:absolute;left:0;top:.55em;width:6px;height:6px;border-radius:50%;background:var(--k)}
+@media(min-width:900px){.ask{grid-template-columns:repeat(3,1fr)}.grp+.grp{border-top:0;padding-top:0;border-left:1px solid #ece3d6;padding-left:18px}}
 </style></head><body><div class=page>
 <nav><a class=mark href="#" aria-label="Liněn home"><img class=wm src="brand/wordmark.png" alt="Liněn · Personal finance"></a><a class=navbtn href="#try">Try it</a></nav>
 <div class=wrap>
@@ -116,7 +120,12 @@ h1,h2,h3,.feat b,.step h3,.faq b,.cap b{text-wrap:balance}p,.lead,.sub,.note,.fe
 <div class=vs>
  <div class=a><b>A normal money&nbsp;app</b><ul><li>Monthly fee or&nbsp;ads</li><li>Same screens for&nbsp;everyone</li><li>Your data lives on their&nbsp;servers</li></ul></div>
  <div class=b><b>Liněn with&nbsp;Grok</b><ul><li>Pay once, it's&nbsp;yours</li><li>Shaped to you, change it by&nbsp;asking</li><li>Runs on a place you&nbsp;control</li></ul></div>
+
 </div>
+
+<hr class=rule>
+<div class=sec id=ask><span class=lbl>Things you can ask Grok</span><h2>Just <em class=c>ask</em></h2><p class=sub>Grok reads the app and your numbers, so you get real answers about your money. It looks; it never moves&nbsp;money.</p></div>
+<div class=ask><div class=grp style="--k:var(--teal)"><div class=gl>Everyday money</div><div class=qs><span class=q>“Can I afford a $3K trip in March?”</span><span class=q>“Where did my money go this month?”</span><span class=q>“How much is left for dining this week?”</span></div></div><div class=grp style="--k:var(--slate)"><div class=gl>Deeper analysis</div><div class=qs><span class=q>“How concentrated am I in SpaceX and Tesla?”</span><span class=q>“When will my emergency fund be full?”</span><span class=q>“How has my spending changed since summer?”</span></div></div><div class=grp style="--k:var(--clay)"><div class=gl>Change the app by asking</div><div class=qs><span class=q>“Add a pet budget”</span><span class=q>“Make dining its own color”</span><span class=q>“Can I change your name to&nbsp;____?”</span><span class=q>“Can you make the colors brighter?”</span><span class=q>“Can you make the app a neon tech vibe&nbsp;aesthetic?”</span><span class=q>“Can you add this&nbsp;chart…”</span></div></div></div>
 
 <hr class=rule>
 <div class=sec><span class=lbl>Pricing</span><h2>Simple, <em class=g>one&nbsp;time</em></h2></div>
