@@ -174,4 +174,16 @@ nav .icon{width:36px;height:36px;mix-blend-mode:multiply;border-radius:8px;displ
 </div>
 <footer>Liněn · Built with Grok, not affiliated with xAI. · Not financial advice.</footer>
 </div>
-<script>(()=>{const d=document.getElementById('dev'),f=d.querySelector('.frame');const fit=()=>{if(innerWidth<=640)f.style.setProperty('--s',f.clientWidth/370)};addEventListener('resize',fit);fit();document.addEventListener('keydown',e=>{if(e.key==='Escape')d.classList.remove('full')})})();</script></body></html>
+<script>(()=>{const d=document.getElementById('dev'),f=d.querySelector('.frame');const fit=()=>{if(innerWidth<=640)f.style.setProperty('--s',f.clientWidth/370)};addEventListener('resize',fit);fit();document.addEventListener('keydown',e=>{if(e.key==='Escape')d.classList.remove('full')})})();</script><script>
+// Always open at the top: no restored scroll, no leftover #try, and nothing inside the demo frame
+// (focus, layout) may pull the page down before the visitor touches it. Try it links still jump.
+(function(){
+  if('scrollRestoration' in history) history.scrollRestoration='manual';
+  var touched=false;['touchstart','wheel','keydown','mousedown'].forEach(function(e){addEventListener(e,function(){touched=true},{passive:true,once:true})});
+  if(location.hash){history.replaceState(null,'',location.pathname+location.search)}
+  function top(){if(!touched)scrollTo(0,0)}
+  top();addEventListener('DOMContentLoaded',top);addEventListener('load',function(){top();setTimeout(top,300);setTimeout(top,1200)});
+  addEventListener('pageshow',function(e){if(e.persisted)return;top()});
+  document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href="#try"]');if(!a)return;e.preventDefault();touched=true;document.getElementById('try').scrollIntoView({behavior:'smooth'})});
+})();
+</script></body></html>
