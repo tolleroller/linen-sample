@@ -1,4 +1,4 @@
-# Liněn sample: a calm money app you run yourself
+# Liněn sample: a tranquil money app you run yourself
 
 This is the **free sample** of Liněn, a phone-first personal-finance app. It includes the app shell, the theme (palette, fonts, header), the **Home** and **Activity** screens, and fictional demo data.
 
