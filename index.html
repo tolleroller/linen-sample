@@ -73,6 +73,10 @@ h1,h2,h3,.feat b,.step h3,.faq b,.cap b{text-wrap:balance}p,.lead,.sub,.note,.fe
 .grp+.grp{border-top:1px solid #ece3d6;padding-top:16px}.grp .gl{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--k);font-weight:600;margin-bottom:6px}
 .qs{display:grid;gap:6px}.q{font-size:17px;font-style:italic;color:var(--ink);text-wrap:balance;padding-left:14px;position:relative}.q:before{content:"";position:absolute;left:0;top:.55em;width:6px;height:6px;border-radius:50%;background:var(--k)}
 @media(min-width:900px){.ask{grid-template-columns:repeat(3,1fr)}.grp+.grp{border-top:0;padding-top:0;border-left:1px solid #ece3d6;padding-left:18px}}
+.getcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:6px 18px}
+.gi{padding:12px 0 12px 16px;position:relative}.gi+.gi{border-top:1px solid #ece3d6}.gi:before{content:"";position:absolute;left:0;top:19px;width:7px;height:7px;border-radius:50%;background:var(--k)}
+.gi b{display:block;font-size:17.5px;font-weight:600;color:var(--ink);text-wrap:balance}.gi p{margin:2px 0 0;font-size:15.5px;text-wrap:pretty}
+.why50{margin:16px 0 0;font-size:18px;font-style:italic;color:var(--ink);text-wrap:pretty;border-left:3px solid var(--clay);padding:2px 0 2px 14px}.why50 .sig{display:block;margin-top:6px;font-size:15px;color:var(--clay);font-style:normal;font-weight:600}
 </style></head><body><div class=page>
 <nav><a class=mark href="#" aria-label="Liněn home"><img class=wm src="brand/wordmark.png" alt="Liněn · Personal finance"></a><a class=navbtn href="#try">Try it</a></nav>
 <div class=wrap>
@@ -106,7 +110,7 @@ h1,h2,h3,.feat b,.step h3,.faq b,.cap b{text-wrap:balance}p,.lead,.sub,.note,.fe
 <div class=steps>
  <div class=step style="--k:var(--clay)"><svg width=34 height=34 viewBox="0 0 24 24" fill=none stroke="#c2714f" stroke-width=1.6 stroke-linecap=round><path d="M6 7h12l-1 12H7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg><div class=n>1</div><h3>Buy&nbsp;it</h3><p>One payment of $50. No subscription, no ads,&nbsp;ever.</p></div>
  <div class=step style="--k:var(--teal)"><svg width=34 height=34 viewBox="0 0 24 24" fill=none stroke="#5f9c98" stroke-width=1.6 stroke-linecap=round stroke-linejoin=round><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></svg><div class=n>2</div><h3>Paste one message into&nbsp;Grok</h3><p>Grok sets it up for you and puts it online, free. You just answer a few&nbsp;questions.</p><div class=msg>“Set up Liněn for me…”</div></div>
- <div class=step style="--k:var(--slate)"><svg width=34 height=34 viewBox="0 0 24 24" fill=none stroke="#6f86a8" stroke-width=1.6 stroke-linecap=round stroke-linejoin=round><rect x=7 y=2.5 width=10 height=19 rx=2.5 /><path d="M11 18.5h2"/><path d="M10 9l2-2 2 2M12 7v6"/></svg><div class=n>3</div><h3>Add it to your&nbsp;phone</h3><p>Save it to your home screen, then connect your banks. Your real numbers&nbsp;appear.</p></div>
+ <div class=step style="--k:var(--slate)"><svg width=34 height=34 viewBox="0 0 24 24" fill=none stroke="#6f86a8" stroke-width=1.6 stroke-linecap=round stroke-linejoin=round><rect x=7 y=2.5 width=10 height=19 rx=2.5 /><path d="M11 18.5h2"/><path d="M10 9l2-2 2 2M12 7v6"/></svg><div class=n>3</div><h3>Add it to your&nbsp;phone</h3><p>Save it to your home screen. When you’re ready, Grok’s native connectors link your accounts through Plaid, and your real numbers&nbsp;appear.</p></div>
 </div>
 
 <hr class=rule>
@@ -128,14 +132,24 @@ h1,h2,h3,.feat b,.step h3,.faq b,.cap b{text-wrap:balance}p,.lead,.sub,.note,.fe
 <div class=ask><div class=grp style="--k:var(--teal)"><div class=gl>Everyday money</div><div class=qs><span class=q>“Can I afford a $3K trip in March?”</span><span class=q>“Where did my money go this month?”</span><span class=q>“How much is left for dining this week?”</span></div></div><div class=grp style="--k:var(--slate)"><div class=gl>Deeper analysis</div><div class=qs><span class=q>“How concentrated am I in SpaceX and Tesla?”</span><span class=q>“When will my emergency fund be full?”</span><span class=q>“How has my spending changed since summer?”</span></div></div><div class=grp style="--k:var(--clay)"><div class=gl>Change the app by asking</div><div class=qs><span class=q>“Add a pet budget”</span><span class=q>“Make dining its own color”</span><span class=q>“Can I change your name to&nbsp;____?”</span><span class=q>“Can you make the colors brighter?”</span><span class=q>“Can you make the app a neon tech vibe&nbsp;aesthetic?”</span><span class=q>“Can you add this&nbsp;chart…”</span></div></div></div>
 
 <hr class=rule>
+<div class=sec id=getting><span class=lbl>What you’re getting</span><h2>50+ hours, <em class=c>ready to go</em></h2><p class=sub>I spent 50+ hours and about $500 in AI token costs building Liněn: crafting it, refining it, chasing down bugs, adding features, and getting the look just&nbsp;right. Here’s what you&nbsp;get.</p></div>
+<div class=getcard>
+ <div class=gi style="--k:var(--teal)"><b>The whole app</b><p>Home, Activity, Budgets, Goals and Wealth, with goal rings, split charges and category&nbsp;rules.</p></div>
+ <div class=gi style="--k:var(--gold)"><b>One message to paste into Grok</b><p>It installs everything, asks you a few questions, and puts the app online on a free&nbsp;account.</p></div>
+ <div class=gi style="--k:var(--clay)"><b>Marcus, ready to coach</b><p>His goals and weekly notes live in one simple file that Grok can rewrite for&nbsp;you.</p></div>
+ <div class=gi style="--k:var(--slate)"><b>A phone install guide</b><p>Step-by-step for iPhone and Android, so it sits on your home screen like any&nbsp;app.</p></div>
+ <div class=gi style="--k:var(--rose)"><b>Practice numbers</b><p>A made-up person named Sam, so you can try everything before your own numbers go&nbsp;in.</p></div>
+</div>
+<p class=why50>For $50 you get 50+ hours of work and $500 in AI token costs, for a tenth of what it cost me. You skip straight to the good&nbsp;part.<span class=sig>— Joshua</span></p>
+<hr class=rule>
 <div class=sec><span class=lbl>Pricing</span><h2>Simple, <em class=g>one&nbsp;time</em></h2></div>
-<div class="pc solo" style="--k:var(--clay)"><div class=lbl>Liněn</div><div class=amt>$50 <em>coming soon</em></div><p class=note>Every screen, Marcus the coach, guided setup with Grok, and 90 days of&nbsp;fixes.</p><div class=btns style="justify-content:flex-start;margin-bottom:0"><span class="btn p" aria-disabled=true>Full app · $50 · <small>Coming soon</small></span></div></div>
+<div class="pc solo" style="--k:var(--clay)"><div class=lbl>Liněn</div><div class=amt>$50 <em>coming soon</em></div><p class=note>Every screen, Marcus the coach, and guided setup with&nbsp;Grok.</p><div class=btns style="justify-content:flex-start;margin-bottom:0"><span class="btn p" aria-disabled=true>Full app · $50 · <small>Coming soon</small></span></div></div>
 <div class=early><b>Early buyers: <em class=c>50%&nbsp;off</em></b> if you post about it. Details&nbsp;at&nbsp;launch.</div>
 
 <hr class=rule>
 <div class=sec><span class=lbl>Questions</span><h2>Good to <em class=c>know</em></h2></div>
 <div class=faq>
-<b>Does it connect to my&nbsp;bank?</b><p>Yes, through Grok. You link your banks once in Grok, and Liněn reads your balances and transactions from&nbsp;there.</p>
+<b>Does it connect to my&nbsp;bank?</b><p>Yes, when you’re ready. Grok’s native connectors link your accounts through Plaid, and Liněn reads your balances and transactions from&nbsp;there.</p>
 <b>Do I need to be&nbsp;technical?</b><p>No. You paste one message into Grok and it sets everything up and puts it online for you, free. You just answer a few&nbsp;questions.</p>
 </div>
 </div>
