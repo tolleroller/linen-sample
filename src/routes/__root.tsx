@@ -14,7 +14,7 @@ export const Route = createRootRoute({
       {
         name: "description",
         content:
-          "Liněn is a calm personal-finance app for balances, spending, budgets, goals, and net worth.",
+          "Liněn is a tranquil personal-finance app for balances, spending, budgets, goals, and net worth.",
       },
       { name: "apple-mobile-web-app-title", content: "Liněn" },
       { name: "apple-mobile-web-app-capable", content: "yes" },
