@@ -83,9 +83,15 @@ h1,h2,h3,.feat b,.step h3,.faq b,.cap b{text-wrap:balance}p,.lead,.sub,.note,.fe
 .tech[open] .chev{transform:rotate(180deg)}.tdl{padding:0 18px 12px}
 .td{padding:12px 0 12px 16px;border-top:1px solid #ece3d6;position:relative}.td:before{content:"";position:absolute;left:0;top:20px;width:7px;height:7px;border-radius:50%;background:var(--k)}
 .td b{display:block;font-size:17px;font-weight:600;color:var(--ink)}.td p{margin:2px 0 0;font-size:15.5px;text-wrap:pretty}
-nav .icon{width:36px;height:36px;mix-blend-mode:multiply;border-radius:8px;display:block}nav .mark b{font-size:24px;font-weight:600;color:var(--ink)}
+nav .icon{width:36px;height:36px;mix-blend-mode:multiply;border-radius:8px;display:block}nav .mark{display:flex;align-items:center;gap:10px}nav .wm{height:24px;width:auto;display:block}
+.fold>summary{list-style:none;cursor:pointer;display:block}.fold>summary::-webkit-details-marker{display:none}
+.fold .one{margin:6px 0 0;font-size:17px;color:var(--warm,#8a7d6e);text-wrap:pretty}
+.fold .more{display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:7px 14px;border:1px solid var(--line);border-radius:999px;background:var(--card);font-size:15px;font-weight:600;color:var(--clay)}
+.fold .chev{transition:transform .2s;display:inline-block}.fold[open] .chev{transform:rotate(180deg)}
+.fold .le,.fold[open] .mo{display:none}.fold[open] .le{display:inline}.fold[open] .one{display:none}
+.fold .sub.in{margin-top:0}.fbody{padding-top:12px}
 </style></head><body><div class=page>
-<nav><a class=mark href="#" aria-label="Liněn home"><img class=icon src="brand/linen-icon.png" width=36 height=36 alt=""><b>Liněn</b></a><a class=navbtn href="#try">Try it</a></nav>
+<nav><a class=mark href="#" aria-label="Liněn home"><img class=icon src="brand/linen-icon.png" width=36 height=36 alt=""><img class=wm src="brand/wordmark-linen.png" width=99 height=26 alt="Liněn"></a><a class=navbtn href="#try">Try it</a></nav>
 <div class=wrap>
 <div class=top>
 <img class=logo src="brand/header.png" alt="Liněn · Personal finance">
@@ -121,7 +127,7 @@ nav .icon{width:36px;height:36px;mix-blend-mode:multiply;border-radius:8px;displ
 </div>
 
 <hr class=rule>
-<div class=sec><span class=lbl>Why Grok makes it better</span><h2>A money app that <em class=c>knows&nbsp;you</em></h2><p class=sub>Most finance apps are the same for everyone. Set up through Grok, Liněn is yours, and it has someone to&nbsp;talk&nbsp;to.</p></div>
+<details class=fold><summary class=sec><span class=lbl>Why Grok makes it better</span><h2>A money app that <em class=c>knows&nbsp;you</em></h2><p class=one>A coach that reads your real numbers, and an app you change by asking.</p><span class=more><span class=mo>Show more</span><span class=le>Show less</span> <span class=chev aria-hidden=true>⌄</span></span></summary><div class=fbody><p class="sub in">Most finance apps are the same for everyone. Set up through Grok, Liněn is yours, and it has someone to&nbsp;talk&nbsp;to.</p>
 <div class=why>
  <div class=feat style="--k:var(--gold)"><b>A coach who reads <i>your real&nbsp;numbers</i></b><p>Marcus looks at your actual balances and spending, not averages, and tells you what matters this&nbsp;week.</p></div>
  <div class=feat style="--k:var(--teal)"><b>Answers <i>in plain&nbsp;English</i></b><p>Ask “can I afford the trip in March?” or “why was September so high?” and get a straight&nbsp;answer.</p></div>
@@ -133,13 +139,13 @@ nav .icon{width:36px;height:36px;mix-blend-mode:multiply;border-radius:8px;displ
  <div class=b><b>Liněn with&nbsp;Grok</b><ul><li>Pay once, it's&nbsp;yours</li><li>Shaped to you, change it by&nbsp;asking</li><li>Runs on a place you&nbsp;control</li></ul></div>
 
 </div>
-
+</div></details>
 <hr class=rule>
-<div class=sec id=ask><span class=lbl>Things you can ask Grok</span><h2>Just <em class=c>ask</em></h2><p class=sub>Grok reads the app and your numbers, so you get real answers about your money. It looks; it never moves&nbsp;money.</p></div>
+<details class=fold><summary class=sec id=ask><span class=lbl>Things you can ask Grok</span><h2>Just <em class=c>ask</em></h2><p class=one>Everyday questions, deeper analysis, and changes to the app itself.</p><span class=more><span class=mo>Show more</span><span class=le>Show less</span> <span class=chev aria-hidden=true>⌄</span></span></summary><div class=fbody><p class="sub in">Grok reads the app and your numbers, so you get real answers about your money. It looks; it never moves&nbsp;money.</p>
 <div class=ask><div class=grp style="--k:var(--teal)"><div class=gl>Everyday money</div><div class=qs><span class=q>“Can I afford a $3K trip in March?”</span><span class=q>“Where did my money go this month?”</span><span class=q>“How much is left for dining this week?”</span></div></div><div class=grp style="--k:var(--slate)"><div class=gl>Deeper analysis</div><div class=qs><span class=q>“How concentrated am I in SpaceX and Tesla?”</span><span class=q>“When will my emergency fund be full?”</span><span class=q>“How has my spending changed since summer?”</span></div></div><div class=grp style="--k:var(--clay)"><div class=gl>Change the app by asking</div><div class=qs><span class=q>“Add a pet budget”</span><span class=q>“Make dining its own color”</span><span class=q>“Can I change your name to&nbsp;____?”</span><span class=q>“Can you make the colors brighter?”</span><span class=q>“Can you make the app a neon tech vibe&nbsp;aesthetic?”</span><span class=q>“Can you add this&nbsp;chart…”</span></div></div></div>
-
+</div></details>
 <hr class=rule>
-<div class=sec id=getting><span class=lbl>What you’re getting</span><h2>50+ hours, <em class=c>ready to go</em></h2><p class=sub>I spent 50+ hours and about $500 in AI token costs building Liněn: crafting it, refining it, chasing down bugs, adding features, and getting the look just&nbsp;right. Here’s what you&nbsp;get.</p></div>
+<details class=fold><summary class=sec id=getting><span class=lbl>What you’re getting</span><h2>50+ hours, <em class=c>ready to go</em></h2><p class=one>The whole app, the one-paste setup, Marcus, a phone guide and practice numbers.</p><span class=more><span class=mo>Show more</span><span class=le>Show less</span> <span class=chev aria-hidden=true>⌄</span></span></summary><div class=fbody><p class="sub in">I spent 50+ hours and about $500 in AI token costs building Liněn: crafting it, refining it, chasing down bugs, adding features, and getting the look just&nbsp;right. Here’s what you&nbsp;get.</p>
 <div class=getcard>
  <div class=gi style="--k:var(--teal)"><b>The whole app</b><p>Home, Activity, Budgets, Goals and Wealth, with goal rings, split charges and category&nbsp;rules.</p></div>
  <div class=gi style="--k:var(--gold)"><b>One message to paste into Grok</b><p>It installs everything, asks you a few questions, and puts the app online, password protected, on your own free&nbsp;account.</p></div>
@@ -147,18 +153,18 @@ nav .icon{width:36px;height:36px;mix-blend-mode:multiply;border-radius:8px;displ
  <div class=gi style="--k:var(--slate)"><b>A phone install guide</b><p>Step-by-step for iPhone and Android, so it sits on your home screen like any&nbsp;app.</p></div>
  <div class=gi style="--k:var(--rose)"><b>Practice numbers</b><p>A made-up person named Sam, so you can try everything before your own numbers go&nbsp;in.</p></div>
 </div>
-
+</div></details>
 <hr class=rule>
 <div class=sec><span class=lbl>Pricing</span><h2>Simple, <em class=g>one&nbsp;time</em></h2></div>
 <div class="pc solo" style="--k:var(--clay)"><div class=lbl>Liněn</div><div class=amt>$50 <em>coming soon</em></div><p class=note>Every screen, Marcus the coach, and guided setup with&nbsp;Grok.</p><div class=btns style="justify-content:flex-start;margin-bottom:0"><span class="btn p" aria-disabled=true>Full app · $50 · <small>Coming soon</small></span></div></div>
 <div class=early><b>Early buyers: <em class=c>50%&nbsp;off</em></b> if you post about it. Details&nbsp;at&nbsp;launch.</div>
 
 <hr class=rule>
-<div class=sec><span class=lbl>Questions</span><h2>Good to <em class=c>know</em></h2></div>
+<details class=fold><summary class=sec><span class=lbl>Questions</span><h2>Good to <em class=c>know</em></h2><p class=one>Bank connections, and whether you need to be technical.</p><span class=more><span class=mo>Show more</span><span class=le>Show less</span> <span class=chev aria-hidden=true>⌄</span></span></summary><div class=fbody>
 <div class=faq>
 <b>Does it connect to my&nbsp;bank?</b><p>Yes, when you’re ready. Grok’s native connectors link your accounts through Plaid, and Liněn reads your balances and transactions from&nbsp;there.</p>
 <b>Do I need to be&nbsp;technical?</b><p>No. You paste one message into Grok and it sets everything up and puts it online for you, free. You just answer a few&nbsp;questions.</p>
-</div>
+</div></div></details>
 <hr class=rule>
 <details class=tech><summary><span class=lbl>For the curious</span><span class=ts>Technical details</span><span class=chev aria-hidden=true>⌄</span></summary><div class=tdl><div class=td style="--k:var(--teal)"><b>Stack</b><p>TypeScript 5.9, React 19, TanStack Start 1.168 (Router, Query), Vite 8 with a Nitro server build, Tailwind CSS 4, Recharts 2 and Zustand&nbsp;5.</p></div><div class=td style="--k:var(--slate)"><b>Hosting and cost</b><p>Free on your own Vercel account (the Hobby plan, which allows personal use). Grok runs the build and deploy for you, the same way mine runs. Prefer Cloudflare? It also builds for Cloudflare Pages on the free plan, protected with Cloudflare Access (free for up to 50&nbsp;users).</p></div><div class=td style="--k:var(--clay)"><b>Privacy and password protection</b><p>Private and password protected, and it works just like mine: a built-in login screen runs in front of every page and file. You choose the password and type it straight into Vercel’s settings, never into the chat. Log in once and your phone stays signed in for about a year. Until a password is set, the site stays locked rather than&nbsp;public.</p></div><div class=td style="--k:var(--gold)"><b>Where your data lives</b><p>Your numbers are in one file, my-snapshot.ts, on your computer (git-ignored) and on your own password-protected&nbsp;site. Budgets, category changes and rules are saved on your phone in local storage. No analytics; the only outside request is Google Fonts for the&nbsp;typefaces.</p></div><div class=td style="--k:var(--rose)"><b>Accounts, Plaid and refresh</b><p>Grok’s native Finance connector links your banks, cards and brokerages through Plaid. When you say “sync,” Grok reads them (read-only, it never moves money), saves the results, and an import script merges them into my-snapshot.ts, keeping your history and updating balances. Then it rebuilds and redeploys. Weekly works well; it isn’t a live&nbsp;feed.</p></div><div class=td style="--k:var(--teal)"><b>Coaching</b><p>Marcus’s goals, plan and weekly notes live in coaching.json. Grok rewrites it from your numbers when you&nbsp;ask.</p></div><div class=td style="--k:var(--slate)"><b>On your phone</b><p>An installable web app (PWA) with a manifest and home-screen icons, set up with the iPhone (Safari) and Android (Chrome) guide. There’s no service worker, so it needs a connection to open; once open, the last snapshot is kept on the&nbsp;phone.</p></div><div class=td style="--k:var(--clay)"><b>How it’s delivered and updated</b><p>After checkout you get one message to paste into Grok, with a private download link (a zip). Grok fetches it, sets it up and deploys it to your own Vercel&nbsp;site. No GitHub account needed; a GitHub invite is available if you’d rather work from the repository. Your copy is yours after that: changes reach your phone when Grok rebuilds and redeploys, and you close and reopen the app to see&nbsp;them.</p></div><div class=td style="--k:var(--gold)"><b>Tests</b><p>45 unit tests cover splits, category rules, undo, label precedence, goals and the password login (npm&nbsp;test).</p></div><div class=td style="--k:var(--rose)"><b>Backup and export</b><p>Back up my-snapshot.ts and the finance-import folder; those are your data. Phone-only settings stay on that phone, with no export button&nbsp;yet.</p></div><div class=td style="--k:var(--teal)"><b>License</b><p>Personal or single-project use. Change anything you like; just don’t resell or redistribute&nbsp;it.</p></div></div></details>
 </div>
