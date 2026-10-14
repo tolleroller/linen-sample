@@ -40,8 +40,29 @@ footer{margin-top:50px;padding:22px 56px 30px;font-size:14px;font-style:italic;b
 @media(max-width:640px){.wrap{padding:0 20px}nav{padding:12px 20px}h1{font-size:35px}.lead{font-size:17px}h2{font-size:28px}.logo{margin-top:14px;border-radius:12px}
 .hero{flex-direction:column;align-items:center}.car{width:min(300px,100%)}.price{grid-template-columns:1fr}footer{padding:20px}td:not(:first-child),th:not(:first-child){width:60px}}
 .live{background:var(--teal);color:#fff;box-shadow:inset 0 -3px 0 #3f7d79}.trylink{text-align:center;margin-top:10px}.trylink a{color:var(--teal);font-style:italic;font-weight:600;text-decoration:none;border-bottom:1px solid var(--teal)}
+
+.demo{display:flex;gap:34px;align-items:flex-start;justify-content:center;margin-top:18px}
+.dev{flex-shrink:0;width:390px}.dev .frame{width:390px;height:800px;border:10px solid var(--ink);border-radius:46px;overflow:hidden;background:var(--paper);box-shadow:0 30px 60px -30px #2c241c99;position:relative}
+.dev iframe{border:0;width:370px;height:780px;display:block;background:var(--paper)}
+.dev .open,.dev .x{display:none}.hint{text-align:center;font-size:14px;font-style:italic;margin-top:10px}
+@media(max-width:640px){.demo{flex-direction:column;align-items:center}.dev{width:100%;max-width:350px}
+.dev .frame{width:100%;height:auto;aspect-ratio:370/700;border-width:8px;border-radius:38px}
+.dev iframe{width:370px;height:700px;transform-origin:0 0;transform:scale(var(--s,0.9))}
+.dev .open{display:block;position:absolute;left:50%;bottom:14px;transform:translateX(-50%);z-index:2;background:var(--ink);color:var(--paper);border:0;border-radius:99px;padding:10px 18px;font:600 15px Newsreader,serif;box-shadow:0 8px 20px -8px #2c241c;white-space:nowrap}}
+.dev.full .frame{position:fixed;inset:0;z-index:99;width:100vw;height:100dvh;aspect-ratio:auto;border:0;border-radius:0}
+.dev.full iframe{width:100vw;height:100dvh;transform:none}.dev.full .open{display:none}
+.dev.full .x{display:block;position:fixed;top:12px;right:12px;z-index:100;width:40px;height:40px;border-radius:50%;border:0;background:var(--ink);color:var(--paper);font-size:20px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.step{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;position:relative;border-top:4px solid var(--k)}
+.step .n{width:44px;height:44px;border-radius:50%;background:color-mix(in srgb,var(--k) 16%,#fff);color:var(--k);display:grid;place-items:center;font-size:22px;font-weight:600;font-style:italic}
+.step h3{margin:12px 0 4px;font-size:21px;font-weight:600}.step p{margin:0;font-size:16px}.step svg{position:absolute;top:18px;right:18px;opacity:.85}
+.msg{margin-top:10px;font-size:14px;font-style:italic;background:#5f9c9814;border-left:3px solid var(--teal);padding:8px 10px;border-radius:0 8px 8px 0;color:var(--ink)}
+.why{display:grid;grid-template-columns:1fr 1fr;gap:12px}.why .feat p{font-size:16px}
+.vs{margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:12px}.vs div{border-radius:14px;padding:14px 16px;font-size:15.5px}.vs .a{background:#8a7d6e12;border:1px dashed #cfc4b6}.vs .b{background:#c9a24e18;border:1px solid var(--gold)}
+.vs b{display:block;margin-bottom:4px}.vs ul{margin:0;padding-left:18px}
+.solo{max-width:520px;margin:0 auto}
+@media(max-width:640px){.steps,.why,.vs{grid-template-columns:1fr}}
 </style></head><body><div class=page>
-<nav><a class=mark href="#"><img src="brand/linen-icon.png" alt="Liněn"><b>Liněn</b></a><a class=lnk href="https://github.com/tolleroller/linen-sample">Free sample</a></nav>
+<nav><a class=mark href="#"><img src="brand/linen-icon.png" alt="Liněn"><b>Liněn</b></a><a class=lnk href="#try">Try it</a></nav>
 <div class=wrap>
 <div class=top>
 <img class=logo src="brand/header.png" alt="Liněn · Personal finance">
@@ -49,75 +70,59 @@ footer{margin-top:50px;padding:22px 56px 30px;font-size:14px;font-style:italic;b
 <h1>I vibe coded my way to the <em class=c>Nirvana</em> of personal finance apps.</h1>
 <p class=lead>An app <em class=c>you own</em>. No more monthly subscriptions or ads cluttering your experience. Make it fully yours. Connect it to Grok and you've got a <strong>personal finance coach</strong>. A seamless experience on a platform <em class=g>you control</em>.</p>
 <div class=chips><span class=chip style="color:var(--teal);border-color:var(--teal)">Goals</span><span class=chip style="color:var(--slate);border-color:var(--slate)">Budgets</span><span class=chip style="color:var(--clay);border-color:var(--clay)">Splits</span><span class=chip style="color:var(--gold);border-color:var(--gold)">Coaching</span><span class=chip style="color:var(--rose);border-color:var(--rose)">On your phone</span></div>
-<div class=btns><a class="btn live" href="demo/">Try it live →</a><span class="btn p" aria-disabled=true>Full app · $50 · <small>Coming soon</small></span><a class="btn s" href="https://github.com/tolleroller/linen-sample">Free sample</a></div>
-<div class=note>Set up with Grok's help, no coding needed. The live demo uses made-up numbers only.</div>
+<div class=btns><a class="btn live" href="#try">Try it right here ↓</a><span class="btn p" aria-disabled=true>Full app · $50 · <small>Coming soon</small></span></div>
+<div class=note>Set up with Grok's help, no coding needed. The demo below uses made-up numbers only.</div>
 </div>
 
-<hr class=rule>
-<div class=sec><span class=lbl>A look inside</span><h2>Swipe through the <em class=c>good parts</em></h2><p class=sub>Every screen below uses made-up numbers for a pretend person named Sam.</p></div>
-<div class=hero>
- <div class=car>
-  <div class=phone><div class=track>
-<img src="landing-shots-v3/home.png" data-k="var(--teal)" data-t="Home at a glance" data-s="Net worth, goal rings, and Marcus's next step" alt="Home screen, demo data" draggable=false>
-<img src="landing-shots-v3/goals-rings.png" data-k="var(--gold)" data-t="Marcus, your coach" data-s="A plain-words read on your month" alt="Coaching note, demo data" draggable=false>
-<img src="landing-shots-v3/goals-whatif.png" data-k="var(--teal)" data-t="What if" data-s="See how a raise or a refund moves your finish date" alt="What-if goals, demo data" draggable=false>
-<img src="landing-shots-v3/budgets-bars.png" data-k="var(--slate)" data-t="Budgets with bars" data-s="Spent, left, and over, at a glance" alt="Budget bars, demo data" draggable=false>
-<img src="landing-shots-v3/budgets-categories.png" data-k="var(--slate)" data-t="Where it went" data-s="Spending by category, with Adjust and Rules" alt="Categories, demo data" draggable=false>
-<img src="landing-shots-v3/activity-coming.png" data-k="var(--clay)" data-t="Coming up" data-s="A calendar of bills and paydays ahead" alt="Upcoming calendar, demo data" draggable=false>
-<img src="landing-shots-v3/home-recurring.png" data-k="var(--clay)" data-t="Recurring charges" data-s="Subscriptions and bills, with the next date" alt="Recurring charges, demo data" draggable=false>
-<img src="landing-shots-v3/home-chart.png" data-k="var(--rose)" data-t="Income and spending" data-s="Month by month, with what you saved" alt="Income chart, demo data" draggable=false>
-<img src="landing-shots-v3/wealth-chart.png" data-k="var(--gold)" data-t="Net worth over time" data-s="Cash, investments, and debt in one line" alt="Net worth chart, demo data" draggable=false>
-<img src="landing-shots-v3/wealth-allocation.png" data-k="var(--rose)" data-t="Allocation" data-s="What your investments are made of" alt="Allocation, demo data" draggable=false>
-  </div></div>
-  <div class=ctl><button class=arr data-d=-1 aria-label="Previous">‹</button><span class=dots></span><button class=arr data-d=1 aria-label="Next">›</button></div>
-  <div class=cap><b></b><span></span></div>
-  <div class=trylink><a href="demo/">Try the live demo on your phone →</a></div>
- </div>
+
+<hr class=rule id=try>
+<div class=sec><span class=lbl>Try it right here</span><h2>The whole app, <em class=c>live on this page</em></h2><p class=sub>Tap around: Home, Activity, Budgets, Goals, Wealth. Every number belongs to Sam, a pretend person.</p></div>
+<div class=demo>
+ <div class=dev id=dev><div class=frame><iframe src="app/" title="Liněn live demo with made-up numbers" loading=eager></iframe><button class=open onclick="dev.classList.add('full')">Tap to use full screen ⤢</button></div><button class=x aria-label="Close" onclick="dev.classList.remove('full')">✕</button>
+ <div class=hint>Made-up numbers. Nothing here connects to a bank.</div></div>
  <div class=side>
-  <div class=feat style="--k:var(--teal)"><b>Goals with <i>rings</i></b><p>Emergency fund, buffers, savings goals, and a what-if finish date. Tranquil progress, no streaks.</p></div>
+  <div class=feat style="--k:var(--teal)"><b>Goals with <i>rings</i></b><p>Emergency fund, buffer, travel, home and 401(k), with a what-if finish date. Tranquil progress, no streaks.</p></div>
   <div class=feat style="--k:var(--slate)"><b>Budgets that <i>read at a glance</i></b><p>Thin bars, soft over/left colors, monthly limits from your own averages.</p></div>
   <div class=feat style="--k:var(--clay)"><b>Splits and <i>category rules</i></b><p>Split a charge across categories. Merchant rules that remember, with undo.</p></div>
-  <div class=feat style="--k:var(--gold)"><b>A coach, <i>in plain words</i></b><p>Weekly notes from Marcus, kept in one simple settings file. Write your own, or have your AI assistant write them.</p></div>
-  <div class=feat style="--k:var(--rose)"><b>Lives on <i>your phone</i></b><p>Installs on your phone like an app, straight from the browser, on iPhone and Android, with a proper home-screen icon.</p></div>
+  <div class=feat style="--k:var(--gold)"><b>Marcus, <i>your coach</i></b><p>A short note on your month, folded into one row on Home until you want it.</p></div>
+  <div class=feat style="--k:var(--rose)"><b>Lives on <i>your phone</i></b><p>Installs on your phone like an app, straight from the browser, with a proper home-screen icon.</p></div>
  </div>
 </div>
 
 <hr class=rule>
-<div class=sec><span class=lbl>Compare</span><h2>Free sample or <em class=c>full app</em></h2></div>
-<table><tr><th></th><th>Sample</th><th>Full app</th></tr>
-<tr><td>App look: colors, fonts, layout</td><td class=yes>✓</td><td class=yes>✓</td></tr>
-<tr><td>Home and Activity screens</td><td class=yes>✓</td><td class=yes>✓</td></tr>
-<tr><td>Budgets with limits and bars</td><td class=no>—</td><td class=yes>✓</td></tr>
-<tr><td>Split charges and category rules</td><td class=no>—</td><td class=yes>✓</td></tr>
-<tr><td>Goals: rings, what-if, deeper analysis</td><td class=no>—</td><td class=yes>✓</td></tr>
-<tr><td>Coaching notes and a guide to writing them</td><td class=no>—</td><td class=yes>✓</td></tr>
-<tr><td>Demo numbers and a step-by-step setup with Grok</td><td>Basic</td><td class=yes>✓</td></tr>
-<tr><td>Fixes for 90 days</td><td class=no>—</td><td class=yes>✓</td></tr></table>
+<div class=sec><span class=lbl>Get rolling</span><h2>Three steps, <em class=g>no coding</em></h2><p class=sub>About half an hour, start to finish.</p></div>
+<div class=steps>
+ <div class=step style="--k:var(--clay)"><svg width=34 height=34 viewBox="0 0 24 24" fill=none stroke="#c2714f" stroke-width=1.6 stroke-linecap=round><path d="M6 7h12l-1 12H7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg><div class=n>1</div><h3>Buy it</h3><p>One payment of $50. No subscription, no ads, ever.</p></div>
+ <div class=step style="--k:var(--teal)"><svg width=34 height=34 viewBox="0 0 24 24" fill=none stroke="#5f9c98" stroke-width=1.6 stroke-linecap=round stroke-linejoin=round><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></svg><div class=n>2</div><h3>Paste one message into Grok</h3><p>Grok sets it up for you and puts it online, free. You just answer a few questions.</p><div class=msg>“Set up Liněn for me…”</div></div>
+ <div class=step style="--k:var(--slate)"><svg width=34 height=34 viewBox="0 0 24 24" fill=none stroke="#6f86a8" stroke-width=1.6 stroke-linecap=round stroke-linejoin=round><rect x=7 y=2.5 width=10 height=19 rx=2.5 /><path d="M11 18.5h2"/><path d="M10 9l2-2 2 2M12 7v6"/></svg><div class=n>3</div><h3>Add it to your phone</h3><p>Save it to your home screen, then connect your banks. Your real numbers appear.</p></div>
+</div>
+
+<hr class=rule>
+<div class=sec><span class=lbl>Why Grok makes it better</span><h2>A money app that <em class=c>knows you</em></h2><p class=sub>Most finance apps are the same for everyone. Set up through Grok, Liněn is yours, and it has someone to talk to.</p></div>
+<div class=why>
+ <div class=feat style="--k:var(--gold)"><b>A coach who reads <i>your real numbers</i></b><p>Marcus looks at your actual balances and spending, not averages, and tells you what matters this week.</p></div>
+ <div class=feat style="--k:var(--teal)"><b>Answers <i>in plain English</i></b><p>Ask “can I afford the trip in March?” or “why was September so high?” and get a straight answer.</p></div>
+ <div class=feat style="--k:var(--clay)"><b>Change the app <i>just by asking</i></b><p>“Add a goal for a new car.” “Make dining its own budget.” Grok makes the change for you.</p></div>
+ <div class=feat style="--k:var(--slate)"><b>A fresh note <i>every week</i></b><p>Your coaching updates weekly, so the advice keeps up with your life.</p></div>
+</div>
+<div class=vs>
+ <div class=a><b>A normal money app</b><ul><li>Monthly fee or ads</li><li>Same screens for everyone</li><li>Your data lives on their servers</li></ul></div>
+ <div class=b><b>Liněn with Grok</b><ul><li>Pay once, it's yours</li><li>Shaped to you, change it by asking</li><li>Runs on a place you control</li></ul></div>
+</div>
 
 <hr class=rule>
 <div class=sec><span class=lbl>Pricing</span><h2>Simple, <em class=g>one time</em></h2></div>
-<div class=price>
- <div class=pc style="--k:var(--teal)"><div class=lbl>Free sample</div><div class=amt>$0 <em>to try</em></div><p class=note>The look and two screens with made-up numbers. Try it before you buy.</p></div>
- <div class=pc style="--k:var(--clay)"><div class=lbl>Full app</div><div class=amt>$50 <em>coming soon</em></div><p class=note>Every screen, the coaching notes, guided setup with Grok, and 90 days of fixes.</p></div>
-</div>
+<div class="pc solo" style="--k:var(--clay)"><div class=lbl>Liněn</div><div class=amt>$50 <em>coming soon</em></div><p class=note>Every screen, Marcus the coach, guided setup with Grok, and 90 days of fixes.</p><div class=btns style="justify-content:flex-start;margin-bottom:0"><span class="btn p" aria-disabled=true>Full app · $50 · <small>Coming soon</small></span></div></div>
 <div class=early><b>Early buyers: <em class=c>50% off</em></b> if you post about it. Details at launch.</div>
 
 <hr class=rule>
 <div class=sec><span class=lbl>Questions</span><h2>Good to <em class=c>know</em></h2></div>
 <div class=faq>
-<b>Does it connect to my bank?</b><p>Not out of the box. It reads a file you export from your bank, so your data never sits on someone else's computer.</p>
-<b>Do I need to know how to code?</b><p>No. You paste one message into Grok and it sets everything up and puts it online for you, free. You just answer a few questions.</p>
+<b>Does it connect to my bank?</b><p>Yes, through Grok. You link your banks once in Grok, and Liněn reads your balances and transactions from there.</p>
+<b>Do I need to be technical?</b><p>No. You paste one message into Grok and it sets everything up and puts it online for you, free. You just answer a few questions.</p>
 <b>Is the coaching financial advice?</b><p>No. Liněn and Marcus are educational tools, not a licensed financial adviser.</p>
 </div>
 </div>
 <footer>Liněn · Built with Grok, not affiliated with xAI. · Not financial advice. · All figures shown are demo data.</footer>
 </div>
-<script>
-(()=>{const ph=document.querySelector('.car .phone'),tr=ph.querySelector('.track'),imgs=[...tr.children],dots=document.querySelector('.dots'),cb=document.querySelector('.cap b'),cs=document.querySelector('.cap span');let i=0;
-imgs.forEach((_,k)=>{const d=document.createElement('i');d.onclick=()=>go(k);dots.appendChild(d)});
-function go(k){i=(k+imgs.length)%imgs.length;const m=imgs[i];tr.style.transform=`translateX(${-100*i}%)`;[...dots.children].forEach((d,j)=>{d.classList.toggle('on',j===i);d.style.background=j===i?m.dataset.k:''});cb.textContent=m.dataset.t;cb.style.color='';cs.textContent=m.dataset.s;cs.style.color=m.dataset.k;ph.style.borderColor='var(--ink)'}
-document.querySelectorAll('.arr').forEach(b=>b.onclick=()=>go(i+ +b.dataset.d));
-let x0=null;ph.addEventListener('pointerdown',e=>{x0=e.clientX});ph.addEventListener('pointerup',e=>{if(x0===null)return;const dx=e.clientX-x0;x0=null;if(Math.abs(dx)>40)go(i+(dx<0?1:-1))});
-ph.addEventListener('touchstart',e=>{x0=e.touches[0].clientX},{passive:true});ph.addEventListener('touchend',e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(dx)>40)go(i+(dx<0?1:-1))});
-document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(i-1);if(e.key==='ArrowRight')go(i+1)});go(0)})();
-</script></body></html>
+<script>(()=>{const d=document.getElementById('dev'),f=d.querySelector('.frame');const fit=()=>{if(innerWidth<=640)f.style.setProperty('--s',f.clientWidth/370)};addEventListener('resize',fit);fit();document.addEventListener('keydown',e=>{if(e.key==='Escape')d.classList.remove('full')})})();</script></body></html>
