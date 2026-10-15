@@ -50,7 +50,7 @@ footer{margin-top:50px;padding:22px 56px 30px;font-size:14px;font-style:italic;b
 @media(max-width:640px){.demo{flex-direction:column;align-items:center}.dev{width:100%;max-width:350px}
 .dev .frame{width:100%;height:auto;aspect-ratio:370/700;border-width:8px;border-radius:38px}
 .dev iframe{width:370px;height:700px;transform-origin:0 0;transform:scale(var(--s,0.9))}
-.dev .open{display:block;position:absolute;left:50%;bottom:2px;transform:translateX(-50%);z-index:2;background:var(--ink);color:var(--paper);border:0;border-radius:99px;padding:10px 18px;font:600 15px Newsreader,serif;box-shadow:0 8px 20px -8px #2c241c;white-space:nowrap}}
+.dev .open{display:block;position:static;margin:12px auto 0;background:var(--ink);color:var(--paper);border:0;border-radius:99px;padding:10px 18px;font:600 15px Newsreader,serif;box-shadow:0 8px 20px -8px #2c241c;white-space:nowrap}}
 .dev.full .frame{position:fixed;inset:0;z-index:99;width:100vw;height:100dvh;aspect-ratio:auto;border:0;border-radius:0}
 .dev.full iframe{width:100vw;height:100dvh;transform:none}.dev.full .open{display:none}
 .dev.full .x{display:block;position:fixed;top:12px;right:12px;z-index:100;width:40px;height:40px;border-radius:50%;border:0;background:var(--ink);color:var(--paper);font-size:20px}
@@ -137,7 +137,7 @@ nav .icon{width:36px;height:36px;mix-blend-mode:multiply;border-radius:8px;displ
 <hr class=rule id=try>
 <div class=sec><span class=lbl>Try it right here</span><h2>The whole app, <em class=c>live on this&nbsp;page</em></h2><p class=sub>Tap around: <span class=tabs><b style="color:#6b84ad">Home</b>, <b style="color:#df7a5e">Activity</b>, <b style="color:#5fae7d">Budgets</b>, <b style="color:#3f9e9f">Goals</b>&nbsp;and&nbsp;<b style="color:#9488c4">Wealth</b>.</span></p></div>
 <div class=demo>
- <div class=dev id=dev><div class=frame><iframe src="app/?v=1792080887" title="Liněn app" loading=eager></iframe><button class=open onclick="dev.classList.add('full')">Tap to use full screen ⤢</button></div><button class=x aria-label="Close" onclick="dev.classList.remove('full')">✕</button>
+ <div class=dev id=dev><div class=frame><iframe src="app/?v=1792080887" title="Liněn app" loading=eager></iframe></div><button class=open onclick="dev.classList.add('full')">Tap to use full screen ⤢</button><button class=x aria-label="Close" onclick="dev.classList.remove('full')">✕</button>
  </div>
  <div class=side>
   <div class=feat style="--k:var(--teal)"><b>Watch your goals <i>take&nbsp;shape</i></b><p>The deepest page in the app: sleek charts that show where every goal stands today and project it forward, so you can see your progress over time and when you’ll get&nbsp;there.</p></div>
