@@ -119,7 +119,7 @@ nav .icon{width:36px;height:36px;mix-blend-mode:multiply;border-radius:8px;displ
 <hr class=rule id=try>
 <div class=sec><span class=lbl>Try it right here</span><h2>The whole app, <em class=c>live on this&nbsp;page</em></h2><p class=sub>Tap around: <span class=tabs><b style="color:#6b84ad">Home</b>, <b style="color:#df7a5e">Activity</b>, <b style="color:#5fae7d">Budgets</b>, <b style="color:#3f9e9f">Goals</b>&nbsp;and&nbsp;<b style="color:#9488c4">Wealth</b>.</span></p><div style="display:flex;align-items:center;gap:10px;margin:14px 0 0"><span aria-hidden=true style="display:inline-grid;place-items:center;width:30px;height:30px;flex:none;border-radius:50%;background:#2c241c;font-family:'Source Serif 4','Iowan Old Style',Palatino,'Palatino Linotype',serif;font-weight:600;font-size:16px;line-height:1;color:#f08a5d">M</span><span style="line-height:1.3"><b style="font-weight:600;color:#2c241c">Marcus</b><br><span style="font-size:14.5px;color:#8a7d6e">Pre-prompted finance expert agent in&nbsp;Grok.</span></span></div></div>
 <div class=demo>
- <div class=dev id=dev><div class=frame><iframe src="app/?v=1792189020" title="Liněn app" loading=eager></iframe></div><button class=open onclick="dev.classList.add('full')">Tap to use full screen ⤢</button><button class=x aria-label="Close" onclick="dev.classList.remove('full')">✕</button><hr class="rule devrule">
+ <div class=dev id=dev><div class=frame><iframe src="app/?v=1792190060" title="Liněn app" loading=eager></iframe></div><button class=open onclick="dev.classList.add('full')">Tap to use full screen ⤢</button><button class=x aria-label="Close" onclick="dev.classList.remove('full')">✕</button><hr class="rule devrule">
  </div>
  <div class=side>
   <div class=band style="margin:0 0 6px;max-width:none"><span class=lbl>Built with Grok, for Grok</span><h2>Sleek design, <em class=c>real&nbsp;depth</em></h2><p class=one style="margin:0">Grok-level analysis on your goals, accounts and portfolio, with depth and options other finance apps don’t&nbsp;have.</p></div>
@@ -193,7 +193,16 @@ nav .icon{width:36px;height:36px;mix-blend-mode:multiply;border-radius:8px;displ
 </div>
 <footer>Liněn · Built with Grok, not affiliated with xAI. · Not financial advice.</footer>
 </div>
-<script>(()=>{const d=document.getElementById('dev'),f=d.querySelector('.frame');const fit=()=>{if(innerWidth<=640)f.style.setProperty('--s',f.clientWidth/370)};addEventListener('resize',fit);fit();document.addEventListener('keydown',e=>{if(e.key==='Escape')d.classList.remove('full')})})();</script><script>
+<script>(()=>{const d=document.getElementById('dev'),f=d.querySelector('.frame');const fit=()=>{if(innerWidth<=640)f.style.setProperty('--s',f.clientWidth/370)};addEventListener('resize',fit);fit();document.addEventListener('keydown',e=>{if(e.key==='Escape')d.classList.remove('full')});
+/* Phone widths: the first tap (not a scroll or drag) inside the small preview opens the demo full screen. */
+const ifr=f.querySelector('iframe');let p0=null;
+const hook=()=>{let doc;try{doc=ifr.contentDocument}catch(e){return}if(!doc||doc.__lnTap)return;doc.__lnTap=1;
+const small=()=>innerWidth<=640&&!d.classList.contains('full');
+doc.addEventListener('pointerdown',e=>{p0=small()?{x:e.screenX,y:e.screenY,t:Date.now()}:null},true);
+doc.addEventListener('pointerup',e=>{if(!p0||!small())return;const moved=Math.hypot(e.screenX-p0.x,e.screenY-p0.y),quick=Date.now()-p0.t<600;p0=null;if(moved<10&&quick){d.__open=1;d.classList.add('full')}},true);
+doc.addEventListener('click',e=>{if(d.__open){d.__open=0;e.preventDefault();e.stopPropagation()}},true);};
+ifr.addEventListener('load',hook);hook();
+})();</script><script>
 // Always open at the top: no restored scroll, no leftover #try, and nothing inside the demo frame
 // (focus, layout) may pull the page down before the visitor touches it. Try it links still jump.
 (function(){
