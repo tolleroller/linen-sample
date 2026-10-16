@@ -1,0 +1,2427 @@
+import { i as __toESM } from "../_runtime.mjs";
+import { n as require_react } from "../_libs/@radix-ui/react-compose-refs+[...].mjs";
+import { n as require_jsx_runtime } from "../_libs/radix-ui__react-context+react.mjs";
+import { a as DialogPortal, i as DialogOverlay, n as DialogClose, o as DialogTitle, r as DialogContent, t as Dialog } from "../_libs/@radix-ui/react-dialog+[...].mjs";
+import { i as getServerFnById, n as createServerFn, r as TSS_SERVER_FUNCTION } from "./ssr.mjs";
+import { C as Car, E as Apple, S as ChevronLeft, T as ArrowLeftRight, _ as Cpu, a as ShoppingBag, b as Cigarette, c as Search, d as Receipt, f as Plane, g as Fuel, h as HeartPulse, i as Sofa, l as Scissors, m as House, n as Utensils, o as Shirt, p as Landmark, s as Shield, t as Zap, u as RefreshCw, v as Clapperboard, w as BadgeDollarSign, x as ChevronRight, y as CircleHelp } from "../_libs/lucide-react.mjs";
+import { r as useQueryClient, t as useQuery } from "../_libs/tanstack__react-query.mjs";
+import { a as ResponsiveContainer, i as Bar, n as YAxis, o as Tooltip, r as XAxis, t as BarChart } from "../_libs/recharts+[...].mjs";
+import { n as create, t as persist } from "../_libs/zustand.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-BcjHi5wD.js
+var import_react = /* @__PURE__ */ __toESM(require_react());
+var import_jsx_runtime = require_jsx_runtime();
+/** Turn a failed load into a short message for the error card. */
+function classifyLoadError(result) {
+	if (result.pending) return {
+		kind: "pending",
+		message: "Loading your snapshot…"
+	};
+	return {
+		kind: "error",
+		message: result.errorMessage ?? "Something went wrong. Try again.",
+		detail: result.errorMessage
+	};
+}
+/**
+* While a load is pending, retry every few seconds and report "timed_out"
+* after about 30 seconds. With a baked snapshot this rarely triggers.
+*/
+function useRefetchWhenReady(waiting, refetch) {
+	const [state, setState] = (0, import_react.useState)("idle");
+	(0, import_react.useEffect)(() => {
+		if (!waiting) {
+			setState("idle");
+			return;
+		}
+		setState("waiting");
+		const started = Date.now();
+		const timer = setInterval(() => {
+			if (Date.now() - started > 3e4) {
+				setState("timed_out");
+				clearInterval(timer);
+				return;
+			}
+			refetch();
+		}, 3e3);
+		return () => clearInterval(timer);
+	}, [waiting, refetch]);
+	return state;
+}
+var createSsrRpc = (functionId) => {
+	const url = "/_serverFn/" + functionId;
+	const serverFnMeta = { id: functionId };
+	const fn = async (...args) => {
+		return (await getServerFnById(functionId, { origin: "server" }))(...args);
+	};
+	return Object.assign(fn, {
+		url,
+		serverFnMeta,
+		[TSS_SERVER_FUNCTION]: true
+	});
+};
+/**
+* Refresh and a full browser reload both call this server function. It
+* returns the baked snapshot in demo-snapshot.ts. To use your own data, write
+* a snapshot file in the same shape (see README) and import it here.
+*/
+var loadFinance = createServerFn({ method: "POST" }).handler(createSsrRpc("6e917269a307c58683d8e0d7198ad60ce96a0a17f10a20c3c056a0c4da5535f0"));
+/** Last snapshot the phone showed. Separate from linen-prefs-v1. */
+var KEY = "linen-snapshot-v1";
+function readSnapshotCache() {
+	if (typeof localStorage === "undefined") return null;
+	try {
+		const raw = localStorage.getItem(KEY);
+		if (!raw) return null;
+		const data = JSON.parse(raw);
+		if (!data || data.ok !== true || !Array.isArray(data.accounts) || !Array.isArray(data.transactions)) return null;
+		return data;
+	} catch {
+		return null;
+	}
+}
+function writeSnapshotCache(data) {
+	if (!data.ok || typeof localStorage === "undefined") return;
+	try {
+		localStorage.setItem(KEY, JSON.stringify(data));
+	} catch {}
+}
+function navigationIsReload() {
+	if (typeof performance === "undefined") return false;
+	return performance.getEntriesByType("navigation")[0]?.type === "reload";
+}
+var CATEGORIES = [
+	{
+		id: "groceries",
+		name: "Groceries",
+		budget: true
+	},
+	{
+		id: "dining",
+		name: "Dining",
+		budget: true
+	},
+	{
+		id: "transport",
+		name: "Auto",
+		budget: true
+	},
+	{
+		id: "fuel",
+		name: "Fuel",
+		budget: true
+	},
+	{
+		id: "cigarettes",
+		name: "Cigarettes",
+		budget: true
+	},
+	{
+		id: "shopping",
+		name: "Shopping",
+		budget: true
+	},
+	{
+		id: "subscriptions",
+		name: "Software",
+		budget: true
+	},
+	{
+		id: "personal",
+		name: "Personal care",
+		budget: true
+	},
+	{
+		id: "health",
+		name: "Health",
+		budget: true
+	},
+	{
+		id: "housing",
+		name: "Housing",
+		budget: true
+	},
+	{
+		id: "household",
+		name: "Household",
+		budget: true
+	},
+	{
+		id: "utilities",
+		name: "Utilities",
+		budget: true
+	},
+	{
+		id: "entertainment",
+		name: "Entertainment",
+		budget: true
+	},
+	{
+		id: "travel",
+		name: "Travel",
+		budget: true
+	},
+	{
+		id: "services",
+		name: "Laundry",
+		budget: true
+	},
+	{
+		id: "insurance",
+		name: "Insurance",
+		budget: true
+	},
+	{
+		id: "fees",
+		name: "Fees",
+		budget: true
+	},
+	{
+		id: "other",
+		name: "Other",
+		budget: true
+	},
+	{
+		id: "income",
+		name: "Income",
+		budget: false
+	},
+	{
+		id: "transfer",
+		name: "Transfer",
+		budget: false
+	},
+	{
+		id: "investing",
+		name: "Investing",
+		budget: false
+	}
+];
+var BUDGET_CATEGORIES = CATEGORIES.filter((category) => category.budget);
+function categoryName(id) {
+	return CATEGORIES.find((category) => category.id === id)?.name ?? "Other";
+}
+function isBudgetCategory(id) {
+	return BUDGET_CATEGORIES.some((category) => category.id === id);
+}
+function toCents(value) {
+	return Math.round(value * 100);
+}
+function partsCents(parts) {
+	return parts.reduce((sum, part) => sum + toCents(part.amount), 0);
+}
+/** True when a split has 2+ positive parts that add up to the charge, in cents. */
+function splitBalances(parts, txnAmount) {
+	if (parts.length < 2) return false;
+	if (parts.some((part) => !part.category || !(toCents(part.amount) > 0))) return false;
+	return partsCents(parts) === toCents(Math.abs(txnAmount));
+}
+var DETAILED = {
+	FOOD_AND_DRINK_GROCERIES: "groceries",
+	FOOD_AND_DRINK_BEER_WINE_AND_LIQUOR: "groceries",
+	FOOD_AND_DRINK_RESTAURANT: "dining",
+	FOOD_AND_DRINK_FAST_FOOD: "dining",
+	FOOD_AND_DRINK_COFFEE: "dining",
+	FOOD_AND_DRINK_VENDING: "dining",
+	GENERAL_MERCHANDISE_SUPERSTORES: "shopping",
+	GENERAL_MERCHANDISE_ONLINE_MARKETPLACES: "shopping",
+	GENERAL_MERCHANDISE_CLOTHING_AND_ACCESSORIES: "shopping",
+	GENERAL_MERCHANDISE_DEPARTMENT_STORES: "shopping",
+	GENERAL_MERCHANDISE_ELECTRONICS: "shopping",
+	GENERAL_MERCHANDISE_CONVENIENCE_STORES: "shopping",
+	PERSONAL_CARE_GYMS_AND_FITNESS_CENTERS: "health",
+	PERSONAL_CARE_HAIR_AND_BEAUTY: "personal",
+	PERSONAL_CARE_LAUNDRY_AND_DRY_CLEANING: "services",
+	TRANSPORTATION_GAS: "transport",
+	TRANSPORTATION_TAXIS_AND_RIDE_SHARES: "transport",
+	TRANSPORTATION_PUBLIC_TRANSIT: "transport",
+	TRANSPORTATION_PARKING: "transport",
+	TRANSPORTATION_TOLLS: "transport",
+	RENT_AND_UTILITIES_RENT: "housing",
+	RENT_AND_UTILITIES_GAS_AND_ELECTRICITY: "housing",
+	RENT_AND_UTILITIES_INTERNET_AND_CABLE: "housing",
+	RENT_AND_UTILITIES_TELEPHONE: "housing",
+	RENT_AND_UTILITIES_WATER: "housing",
+	RENT_AND_UTILITIES_SEWAGE_AND_WASTE_MANAGEMENT: "housing",
+	MEDICAL_PRIMARY_CARE: "health",
+	MEDICAL_DENTAL_CARE: "health",
+	MEDICAL_PHARMACIES_AND_SUPPLEMENTS: "health",
+	MEDICAL_VETERINARY_SERVICES: "health",
+	ENTERTAINMENT_MUSIC_AND_AUDIO: "entertainment",
+	ENTERTAINMENT_TV_AND_MOVIES: "entertainment",
+	ENTERTAINMENT_VIDEO_GAMES: "entertainment",
+	ENTERTAINMENT_SPORTING_EVENTS_AMUSEMENT_PARKS_AND_MUSEUMS: "entertainment",
+	GENERAL_SERVICES_INSURANCE: "housing",
+	GENERAL_SERVICES_ACCOUNTING_AND_FINANCIAL_PLANNING: "services",
+	BANK_FEES_ATM: "fees",
+	BANK_FEES_OVERDRAFT: "fees",
+	BANK_FEES_FOREIGN_TRANSACTION: "fees",
+	BANK_FEES_INSUFFICIENT_FUNDS: "fees",
+	BANK_FEES_OTHER_BANK_FEES: "fees",
+	INCOME_WAGES: "income",
+	INCOME_DIVIDENDS: "income",
+	INCOME_INTEREST_EARNED: "income",
+	INCOME_RETIREMENT_PENSION: "income",
+	RM_GROCERIES: "groceries",
+	RM_DINING: "dining",
+	RM_TRANSPORT: "transport",
+	RM_SHOPPING: "shopping",
+	RM_SOFTWARE: "subscriptions",
+	RM_PERSONAL: "personal",
+	RM_HEALTH: "health",
+	RM_HOUSING: "housing",
+	RM_UTILITIES: "utilities",
+	RM_ENTERTAINMENT: "entertainment",
+	RM_FEES: "fees",
+	RM_OTHER: "other",
+	RM_INCOME: "income",
+	RM_TRANSFER: "transfer",
+	RM_SERVICES: "services",
+	RM_INSURANCE: "insurance",
+	TRANSFER_IN_ACCOUNT_TRANSFER: "transfer",
+	TRANSFER_OUT_ACCOUNT_TRANSFER: "transfer",
+	TRANSFER_OUT_INVESTMENT_AND_RETIREMENT_FUNDS: "transfer",
+	TRANSFER_IN_INVESTMENT_AND_RETIREMENT_FUNDS: "transfer",
+	TRANSFER_IN_DEPOSIT: "transfer",
+	LOAN_PAYMENTS_CREDIT_CARD_PAYMENT: "transfer",
+	TRAVEL_FLIGHTS: "travel",
+	TRAVEL_LODGING: "travel",
+	TRAVEL_RENTAL_CARS: "travel"
+};
+var PRIMARY = {
+	INCOME: "income",
+	TRANSFER_IN: "transfer",
+	TRANSFER_OUT: "transfer",
+	LOAN_PAYMENTS: "transfer",
+	BANK_FEES: "fees",
+	ENTERTAINMENT: "entertainment",
+	FOOD_AND_DRINK: "dining",
+	GENERAL_MERCHANDISE: "shopping",
+	HOME_IMPROVEMENT: "housing",
+	MEDICAL: "health",
+	PERSONAL_CARE: "personal",
+	GENERAL_SERVICES: "services",
+	GOVERNMENT_AND_NON_PROFIT: "other",
+	TRANSPORTATION: "transport",
+	TRAVEL: "travel",
+	RENT_AND_UTILITIES: "housing"
+};
+var GENERIC_MERCHANT = /^(dry cleaning|restaurant|payment|purchase|debit|merchandise|pos|service|services|general)$/i;
+var NAME_RULES = [
+	[/^amazon prime video$/, "Amazon Prime Video"],
+	[/^amazon prime(?: [a-z]{1,2})?$/, "Amazon Prime"],
+	[/^amazon purchase$/, "Amazon Purchase"],
+	[/^prime video channels$/, "Prime Video Channels"],
+	[/^prime video(?: [a-z]{1,3})?$/, "Amazon Prime Video"],
+	[/^amazon(?: [a-z]{1,2})?$/, "Amazon"],
+	[/^amzn$/, "Amazon"],
+	[/^uber eats$/, "Uber Eats"],
+	[/^ubereats$/, "Uber Eats"],
+	[/^uber one(?: mem| membership)?$/, "Uber One"],
+	[/^uber$/, "Uber"],
+	[/^lyft standard$/, "Lyft Standard"],
+	[/^lyft priority$/, "Lyft Priority"],
+	[/^lyft$/, "Lyft"],
+	[/^youtube premium apple store subscriptions$/, "YouTube Premium - Apple Store Subscriptions"],
+	[/^icloud apple store subscriptions$/, "iCloud - Apple Store Subscriptions"],
+	[/^youtube premium$/, "YouTube Premium"],
+	[/^icloud$/, "iCloud"],
+	[/^apple$/, "Apple"],
+	[/^grok(?: xai)?$/, "Grok"],
+	[/^xai$/, "Grok"],
+	[/^trader joe'?s?\b/, "Trader Joe's"],
+	[/^t-?mobile\b/, "T-Mobile"],
+	[/^tmobile\b/, "T-Mobile"],
+	[/^wal-?mart\b/, "Walmart"],
+	[/^target\b/, "Target"],
+	[/^costco\b/, "Costco"],
+	[/^shell\b/, "Shell"],
+	[/^starbucks\b/, "Starbucks"],
+	[/^cursor\b/, "Cursor"],
+	[/^geico\b/, "GEICO"],
+	[/^netflix\b/, "Netflix"],
+	[/^spotify\b/, "Spotify"],
+	[/^rocket money\b/, "Rocket Money"],
+	[/^(?:the )?roku\b/, "Roku"],
+	[/^venmo\b/, "Venmo"],
+	[/^paypal\b/, "PayPal"],
+	[/^doordash\b/, "DoorDash"],
+	[/^adobe\b/, "Adobe"],
+	[/^github\b/, "GitHub"],
+	[/^(?:openai )?chatgpt\b/, "ChatGPT"],
+	[/^schwab\b/, "Schwab"],
+	[/^interactive brok/, "Interactive Brokers"],
+	[/^starz\b/, "Starz"],
+	[/^autodesk\b/, "Autodesk"],
+	[/^microsoft store$/, "Microsoft Store"],
+	[/^microsoft\b/, "Microsoft"],
+	[/^public(?: com)?(?: tapx\b.*)?$/, "Public"],
+	[/^charles schwab\b/, "Charles Schwab"],
+	[/^discover cona\b/, "Discover"],
+	[/^discover$/, "Discover"],
+	[/^funds transfer to brokerage$/, "Funds Transfer to Brokerage"],
+	[/^bal transfer from checking\b/, "Transfer From Checking"]
+];
+var STATES = new Set("al ak az ar ca co ct de fl ga hi id il in ia ks ky la me md ma mi mn ms mo mt ne nv nh nj nm ny nc nd oh ok or pa ri sc sd tn tx ut vt va wa wv wi wy dc".split(" "));
+var PROCESSOR = /* @__PURE__ */ new Set([
+	"com",
+	"www",
+	"bill",
+	"pos",
+	"ach",
+	"mktpl",
+	"marketplace",
+	"amzn",
+	"http",
+	"https",
+	"pending",
+	"recurring",
+	"visa",
+	"debit",
+	"checkcard",
+	"ppd",
+	"web"
+]);
+function isJunkToken(token) {
+	const bare = token.replace(/'/g, "");
+	if (!bare || !/[a-z0-9]/.test(bare)) return true;
+	if (STATES.has(bare) || bare === "us" || bare === "usa") return true;
+	if (PROCESSOR.has(bare)) return true;
+	if (/^[\d-]+$/.test(bare) && bare.replace(/\D/g, "").length >= 2) return true;
+	if (/[a-z]/.test(bare) && /\d/.test(bare)) return true;
+	return false;
+}
+function meaningfulText(value) {
+	return value.toLowerCase().replace(/&/g, " and ").replace(/[’]/g, "'").replace(/\*+/g, " ").replace(/[^a-z0-9'+-]+/g, " ").trim().split(/\s+/).filter((token) => token && !isJunkToken(token)).join(" ");
+}
+function labelMeaningful(text) {
+	if (!text) return null;
+	for (const [pattern, name] of NAME_RULES) if (pattern.test(text)) return name;
+	return null;
+}
+function statementRefinesBrand(brand, statement) {
+	if (brand !== "Amazon" || !statement) return false;
+	return statement === "Amazon Prime" || statement === "Amazon Purchase" || statement === "Amazon Prime Video" || statement === "Prime Video Channels";
+}
+var STRONG = [
+	[/dry clean|laundromat|laundry/, "services"],
+	[/adobe|chatgpt|openai|\bgrok\b|\bxai\b|\bcursor\b|\bgithub\b|dropbox|google one|microsoft\s*365|apple\.com\/bill|\bgithub\b|rocket money/, "subscriptions"],
+	[/netflix|spotify|hulu|disney|youtube premium|prime video|audible|\bhbo\b|starz|icloud/, "entertainment"],
+	[/payroll|salary|\bwages?\b|direct dep/, "income"]
+];
+var BROAD = [
+	[/whole foods|trader joe|kroger|safeway|albertsons|winco|costco|fred meyer|grocery outlet|\bgrocery\b|\baldi\b|\bheb\b|sprouts/, "groceries"],
+	[/starbucks|doordash|grubhub|uber\s*eats|mcdonald|chipotle|restaurant|\bcoffee\b|\bcafe\b|taco bell|wendy/, "dining"],
+	[/chevron|\bshell\b|exxon|\bparking\b|\blyft\b|\buber\b|transit|sinclair/, "transport"],
+	[/amazon|\btarget\b|walmart|best buy|\betsy\b|home depot|lowes/, "shopping"],
+	[/atm fee|overdraft|service charge|foreign transaction/, "fees"],
+	[/airlines?|\bhotel\b|airbnb|marriott|hilton/, "travel"]
+];
+function merchantKey(name) {
+	return name.toLowerCase().replace(/&/g, " and ").replace(/[^a-z0-9]+/g, " ").trim();
+}
+function titleCase(value) {
+	return value.toLowerCase().replace(/\b([a-z])/g, (letter) => letter.toUpperCase()).replace(/\b(Of|And|The|A)\b/g, (word) => word.toLowerCase());
+}
+function fromStatement(rawName) {
+	let text = rawName.trim();
+	const marked = text.match(/&@#(.+)$/);
+	if (marked?.[1]) text = marked[1];
+	text = text.replace(/^(debit purchase|pos purchase|pos|purchase|ach withdrawal|ach deposit|ach transfer|checkcard)\s+/i, "");
+	text = text.replace(/^\d{2,4}\s+\d{2,}[&@#\s]*/, "");
+	text = text.replace(/\*+/g, " ");
+	text = text.replace(/\s+(amzn\.com\/bill|amzn\.com).*$/i, "");
+	text = text.replace(/\s+\d{2}\/\d{2}.*$/, "");
+	text = text.replace(/\s+ach\s+transf.*$/i, "");
+	text = text.replace(/\s+#\d+\b.*$/i, "");
+	text = text.replace(/\s+t-\d+\b.*$/i, "");
+	text = text.replace(/\s+\d{3}-\d{3}-\d{4}\b.*$/i, "");
+	text = text.replace(/\s+\d{10,}\b.*$/i, "");
+	text = text.replace(/\s+postpai(?:d)?\b.*$/i, "");
+	text = text.replace(/\s+auto pay\b.*$/i, "");
+	text = text.replace(/\s+[a-z]+\s+[a-z]{2}\s+us$/i, "");
+	text = text.replace(/\s+[a-z]{2}\s+us$/i, "");
+	text = text.replace(/\s+[a-z0-9.-]+\.(com|net|org)(\/\S*)?\s*$/i, "");
+	text = text.replace(/\s+(?=\S*\d)[a-z0-9]{3,}$/i, "");
+	return text.replace(/\s+/g, " ").trim();
+}
+function cleanMerchant(rawName, merchantName, ticker) {
+	if (ticker) {
+		const short = fromStatement(rawName).split(" - ")[0]?.replace(/\s+Inc\.?$/i, "").trim();
+		if (short && !/^(buy|sell|dividend|fee|cash|transfer)$/i.test(short)) return short.length > 28 ? ticker : short;
+		return ticker;
+	}
+	const provided = merchantName?.trim() ?? "";
+	const extracted = fromStatement(rawName);
+	const providedText = provided && !GENERIC_MERCHANT.test(provided) ? meaningfulText(provided) : "";
+	const statementText = meaningfulText(extracted);
+	const providedLabel = labelMeaningful(providedText);
+	const statementLabel = labelMeaningful(statementText);
+	if (statementRefinesBrand(providedLabel, statementLabel) && statementLabel) return statementLabel;
+	if (provided && !GENERIC_MERCHANT.test(provided)) return providedLabel ?? titleCase(provided);
+	if (statementLabel) return statementLabel;
+	return titleCase(statementText || meaningfulText(rawName) || "Unknown");
+}
+function bankCategory(txn) {
+	if (txn.plaidDetailed && DETAILED[txn.plaidDetailed]) return DETAILED[txn.plaidDetailed];
+	if (txn.plaidPrimary && PRIMARY[txn.plaidPrimary]) return PRIMARY[txn.plaidPrimary];
+	return null;
+}
+function matchRules(text, rules) {
+	for (const [pattern, category] of rules) if (pattern.test(text)) return category;
+	return null;
+}
+function investCategory(txn) {
+	const type = (txn.investType ?? "").toLowerCase();
+	if (type === "dividend") return "income";
+	if (type === "fee") return "fees";
+	if (type === "transfer" || type === "cash") return "transfer";
+	return "investing";
+}
+function labelTransaction(txn, overrides, lineEdits = {}, splits = {}, rules = {}) {
+	const base = labelUnsplit(txn, overrides, lineEdits, rules);
+	const entry = splits[txn.id];
+	if (!entry) return base;
+	const parts = entry.parts.filter((part) => isKnownCategory(part.category));
+	if (parts.length !== entry.parts.length || !splitBalances(parts, txn.amount)) return {
+		...base,
+		splitIssue: "amount-changed"
+	};
+	const lead = [...parts].sort((a, b) => b.amount - a.amount)[0];
+	return {
+		...base,
+		category: lead?.category ?? base.category,
+		source: "split",
+		splits: parts
+	};
+}
+function labelUnsplit(txn, overrides, lineEdits, rules = {}) {
+	const merchant = cleanMerchant(txn.kind === "invest" && txn.ticker ? txn.rawName || txn.ticker : txn.rawName, txn.merchantName, txn.kind === "invest" ? txn.ticker : null);
+	const key = merchantKey(merchant);
+	const line = lineEdits[txn.id];
+	if (line && isKnownCategory(line)) return {
+		...txn,
+		merchant,
+		merchantKey: key,
+		category: line,
+		source: "line"
+	};
+	const override = overrides[key];
+	const meta = rules.meta?.[key];
+	const scope = meta?.scope ?? "all";
+	const since = meta?.since ?? null;
+	const kept = rules.frozen?.[key]?.[txn.id];
+	if (override && kept && isKnownCategory(kept) && scope === "forward") return {
+		...txn,
+		merchant,
+		merchantKey: key,
+		category: kept,
+		source: "kept",
+		rule: {
+			key,
+			category: override,
+			scope,
+			since
+		}
+	};
+	const reaches = scope === "all" || !since || txn.date.slice(0, 10) >= since;
+	if (override && isKnownCategory(override) && reaches) return {
+		...txn,
+		merchant,
+		merchantKey: key,
+		category: override,
+		source: "you",
+		rule: {
+			key,
+			category: override,
+			scope,
+			since
+		}
+	};
+	if (key === "amazon prime" || key === "amazon prime video" || key === "prime video" || key === "prime video channels") return {
+		...txn,
+		merchant,
+		merchantKey: key,
+		category: "entertainment",
+		source: "merchant"
+	};
+	if (key === "amazon" || key === "amazon purchase") return {
+		...txn,
+		merchant,
+		merchantKey: key,
+		category: "shopping",
+		source: "merchant"
+	};
+	if (txn.kind === "invest") return {
+		...txn,
+		merchant,
+		merchantKey: key,
+		category: investCategory(txn),
+		source: "bank"
+	};
+	const haystack = `${merchant} ${txn.rawName} ${txn.description}`.toLowerCase();
+	const pinned = matchRules(haystack, [
+		[/geico|progressive|state farm/, "insurance"],
+		[/dry clean|laundromat|laundry/, "services"],
+		[/uber\s*\*?\s*one/, "dining"],
+		[/power & light|electric|water utility|t-?mobile|verizon/, "utilities"],
+		[/jiffy lube|take 5|car wash/, "transport"],
+		[/\bshell\b/, "fuel"],
+		[/tobacco|smoke shop/, "cigarettes"]
+	]);
+	if (pinned) return {
+		...txn,
+		merchant,
+		merchantKey: key,
+		category: pinned,
+		source: "merchant"
+	};
+	if (/icloud|\bapple\b/.test(haystack) && Math.abs(txn.amount) > 0 && Math.abs(txn.amount) < 8) return {
+		...txn,
+		merchant,
+		merchantKey: key,
+		category: "subscriptions",
+		source: "merchant"
+	};
+	if (txn.plaidDetailed?.startsWith("RM_")) {
+		const fromBank = bankCategory(txn);
+		if (fromBank) return {
+			...txn,
+			merchant,
+			merchantKey: key,
+			category: fromBank,
+			source: "bank"
+		};
+	}
+	const strong = matchRules(haystack, STRONG);
+	if (strong) return {
+		...txn,
+		merchant,
+		merchantKey: key,
+		category: strong,
+		source: "merchant"
+	};
+	if (txn.plaidConfidence === "VERY_HIGH" || txn.plaidConfidence === "HIGH") {
+		const fromBank = bankCategory(txn);
+		if (fromBank) return {
+			...txn,
+			merchant,
+			merchantKey: key,
+			category: fromBank,
+			source: "bank"
+		};
+	}
+	const broad = matchRules(haystack, BROAD);
+	if (broad) return {
+		...txn,
+		merchant,
+		merchantKey: key,
+		category: broad,
+		source: "merchant"
+	};
+	const fromBank = bankCategory(txn);
+	return {
+		...txn,
+		merchant,
+		merchantKey: key,
+		category: fromBank ?? "other",
+		source: fromBank ? "bank" : "merchant"
+	};
+}
+function isKnownCategory(id) {
+	return id === "groceries" || id === "dining" || id === "transport" || id === "fuel" || id === "cigarettes" || id === "shopping" || id === "subscriptions" || id === "personal" || id === "health" || id === "housing" || id === "household" || id === "utilities" || id === "entertainment" || id === "travel" || id === "services" || id === "insurance" || id === "fees" || id === "other" || id === "income" || id === "transfer" || id === "investing";
+}
+function labelAll(txns, overrides, lineEdits = {}, splits = {}, rules = {}) {
+	return txns.map((txn) => labelTransaction(txn, overrides, lineEdits, splits, rules));
+}
+function isSpending(txn) {
+	if (txn.splits) return txn.amount < 0 && spendingShare(txn) > 0;
+	return txn.amount < 0 && isBudgetCategory(txn.category);
+}
+/** Dollars of this charge that count as spending (all of it unless split). */
+function spendingShare(txn) {
+	if (!txn.splits) return isSpending(txn) ? Math.abs(txn.amount) : 0;
+	if (txn.amount >= 0) return 0;
+	return txn.splits.filter((part) => isBudgetCategory(part.category)).reduce((sum, part) => sum + part.amount, 0);
+}
+/** Signed amount this charge puts in one category (split parts counted separately). */
+function categoryShare(txn, category) {
+	if (!txn.splits) return txn.category === category ? txn.amount : 0;
+	const sign = txn.amount < 0 ? -1 : 1;
+	return txn.splits.filter((part) => part.category === category).reduce((sum, part) => sum + sign * part.amount, 0);
+}
+function parseDay(iso) {
+	const [year, month, day] = iso.split("-").map(Number);
+	return new Date(year, (month ?? 1) - 1, day ?? 1);
+}
+function isoDay(date) {
+	const month = String(date.getMonth() + 1).padStart(2, "0");
+	const day = String(date.getDate()).padStart(2, "0");
+	return `${date.getFullYear()}-${month}-${day}`;
+}
+function daysBetween(from, to) {
+	const ms = parseDay(to).getTime() - parseDay(from).getTime();
+	return Math.round(ms / 864e5);
+}
+function todayIso(now = /* @__PURE__ */ new Date()) {
+	return isoDay(now);
+}
+function findRecurring(txns, now = /* @__PURE__ */ new Date()) {
+	const today = todayIso(now);
+	const groups = /* @__PURE__ */ new Map();
+	for (const txn of txns) {
+		if (!isSpending(txn) || txn.pending) continue;
+		const list = groups.get(txn.merchantKey) ?? [];
+		list.push(txn);
+		groups.set(txn.merchantKey, list);
+	}
+	const found = [];
+	for (const [key, list] of groups) {
+		if (list.length < 2) continue;
+		const sorted = [...list].sort((a, b) => a.date.localeCompare(b.date));
+		const amounts = sorted.map((txn) => Math.abs(txn.amount)).sort((a, b) => a - b);
+		const median = amounts[Math.floor(amounts.length / 2)] ?? 0;
+		if (median < 1) continue;
+		const close = sorted.filter((txn) => Math.abs(Math.abs(txn.amount) - median) / median <= .18);
+		if (close.length < 2) continue;
+		const gaps = [];
+		for (let index = 1; index < sorted.length; index += 1) gaps.push(daysBetween(sorted[index - 1].date, sorted[index].date));
+		const avg = gaps.reduce((sum, gap) => sum + gap, 0) / gaps.length;
+		let cadence = null;
+		if (avg >= 5 && avg <= 10 && close.length >= 3) cadence = "weekly";
+		else if (avg >= 20 && avg <= 45) cadence = "monthly";
+		else if (close.length >= 2 && avg >= 20 && avg <= 75) cadence = "monthly";
+		if (!cadence) continue;
+		const last = sorted[sorted.length - 1];
+		const since = daysBetween(last.date, today);
+		if (cadence === "monthly" && since > 50) continue;
+		if (cadence === "weekly" && since > 16) continue;
+		const next = parseDay(last.date);
+		next.setDate(next.getDate() + (cadence === "weekly" ? 7 : 30));
+		found.push({
+			merchant: last.merchant,
+			merchantKey: key,
+			category: last.category,
+			cadence,
+			amount: median,
+			monthly: cadence === "weekly" ? median * 4.345 : median,
+			lastDate: last.date,
+			nextDate: isoDay(next)
+		});
+	}
+	return found.sort((a, b) => b.monthly - a.monthly);
+}
+function currentMonthKey(now = /* @__PURE__ */ new Date()) {
+	return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+}
+function shiftMonth(key, delta) {
+	const [year, month] = key.split("-").map(Number);
+	const date = new Date(year, (month ?? 1) - 1 + delta, 1);
+	return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
+}
+function formatMonth(key) {
+	const [year, month] = key.split("-").map(Number);
+	return new Date(year, (month ?? 1) - 1, 1).toLocaleDateString("en-US", {
+		month: "long",
+		year: "numeric"
+	});
+}
+function formatDay(iso) {
+	return parseDay(iso).toLocaleDateString("en-US", {
+		weekday: "long",
+		month: "short",
+		day: "numeric"
+	});
+}
+function categorySpend(txns, month, category) {
+	return txns.reduce((sum, txn) => {
+		if (!txn.date.startsWith(month)) return sum;
+		return sum + -categoryShare(txn, category);
+	}, 0);
+}
+function monthIncome(txns, month) {
+	return txns.reduce((sum, txn) => {
+		if (!txn.date.startsWith(month)) return sum;
+		return sum + Math.max(0, categoryShare(txn, "income"));
+	}, 0);
+}
+function monthSpend(txns, month) {
+	return txns.reduce((sum, txn) => {
+		if (!txn.date.startsWith(month) || !isSpending(txn)) return sum;
+		return sum + spendingShare(txn);
+	}, 0);
+}
+function recentMonths(anchor, count = 3) {
+	return Array.from({ length: count }, (_, index) => shiftMonth(anchor, index - (count - 1)));
+}
+function shortMonth(key) {
+	return formatMonth(key).replace(/\s+\d{4}$/, "").slice(0, 3);
+}
+function flowByMonth(txns, months) {
+	return months.map((month) => ({
+		month,
+		label: shortMonth(month),
+		income: Math.max(0, monthIncome(txns, month)),
+		spend: Math.max(0, monthSpend(txns, month))
+	}));
+}
+function savingsRate(income, spend) {
+	if (income <= 0) return null;
+	return (income - spend) / income;
+}
+function quarterFlows(txns, endMonth) {
+	const buckets = /* @__PURE__ */ new Map();
+	for (const month of recentMonths(endMonth, 12)) {
+		const [year, monthNumber] = month.split("-").map(Number);
+		const quarter = Math.floor(((monthNumber ?? 1) - 1) / 3) + 1;
+		const key = `${year}-Q${quarter}`;
+		const current = buckets.get(key) ?? {
+			label: `Q${quarter}`,
+			income: 0,
+			spend: 0
+		};
+		current.income += Math.max(0, monthIncome(txns, month));
+		current.spend += Math.max(0, monthSpend(txns, month));
+		buckets.set(key, current);
+	}
+	return [...buckets.values()].filter((bucket) => bucket.income > 0 || bucket.spend > 20);
+}
+function openGain(holdings, accountId) {
+	let cost = 0;
+	let priced = 0;
+	for (const holding of holdings) {
+		if (accountId && holding.accountId !== accountId) continue;
+		if (!holding.costBasis || holding.costBasis <= 0) continue;
+		cost += holding.costBasis;
+		priced += holding.value;
+	}
+	if (cost <= 0) return null;
+	const gain = priced - cost;
+	return {
+		gain,
+		cost,
+		percent: gain / cost
+	};
+}
+function money(value, digits = 2) {
+	const abs = Math.abs(value).toLocaleString("en-US", {
+		style: "currency",
+		currency: "USD",
+		minimumFractionDigits: digits,
+		maximumFractionDigits: digits
+	});
+	return value < 0 ? `−${abs}` : abs;
+}
+function signedMoney(value) {
+	if (value > 0) return `+${money(value)}`;
+	if (value < 0) return money(value);
+	return money(0);
+}
+function compactMoney(value) {
+	const abs = Math.abs(value);
+	const sign = value < 0 ? "−" : "";
+	if (abs >= 1e4) return `${sign}$${(abs / 1e3).toLocaleString("en-US", { maximumFractionDigits: abs >= 1e5 ? 0 : 1 })}k`;
+	return money(value, abs >= 100 ? 0 : 2);
+}
+/**
+* Create or replace a merchant rule with a scope. A forward rule records the
+* categories earlier charges showed (`frozen`) so they keep them. One undo entry.
+*/
+function applyMerchantRule(books, key, category, name, scope, frozen = {}) {
+	const previous = books.merchantCategories[key] ?? null;
+	const previousMeta = books.ruleMeta?.[key] ?? null;
+	const previousFrozen = books.ruleFrozen?.[key] ?? null;
+	const ruleMeta = {
+		...books.ruleMeta ?? {},
+		[key]: {
+			scope: scope.scope,
+			since: scope.scope === "forward" ? scope.since : null,
+			createdAt: scope.createdAt
+		}
+	};
+	const ruleFrozen = { ...books.ruleFrozen ?? {} };
+	if (scope.scope === "forward") ruleFrozen[key] = { ...frozen };
+	else delete ruleFrozen[key];
+	return withUndo({
+		...books,
+		merchantCategories: {
+			...books.merchantCategories,
+			[key]: category
+		},
+		ruleMeta,
+		ruleFrozen
+	}, {
+		kind: "merchant",
+		key,
+		previous,
+		name,
+		previousMeta,
+		previousFrozen
+	});
+}
+/** Remove several one-charge edits at once (e.g. when a rule now covers all charges). */
+function clearLineEdits(books, ids, name) {
+	const edits = {};
+	const txnCategories = { ...books.txnCategories };
+	for (const id of ids) {
+		const value = txnCategories[id];
+		if (!value) continue;
+		edits[id] = value;
+		delete txnCategories[id];
+	}
+	if (Object.keys(edits).length === 0) return books;
+	return withUndo({
+		...books,
+		txnCategories
+	}, {
+		kind: "bulk",
+		edits,
+		name
+	});
+}
+function withUndo(books, entry) {
+	return {
+		...books,
+		categoryUndos: [...books.categoryUndos, entry].slice(-20)
+	};
+}
+function applyLineCategory(books, id, category, name) {
+	const previous = books.txnCategories[id] ?? null;
+	if (previous === category) return books;
+	return withUndo({
+		...books,
+		txnCategories: {
+			...books.txnCategories,
+			[id]: category
+		},
+		txnEditedAt: {
+			...books.txnEditedAt ?? {},
+			[id]: (/* @__PURE__ */ new Date()).toISOString()
+		}
+	}, {
+		kind: "line",
+		id,
+		previous,
+		name
+	});
+}
+function applyMerchantCategory(books, key, category, name) {
+	const previous = books.merchantCategories[key] ?? null;
+	if (previous === category) return books;
+	return withUndo({
+		...books,
+		merchantCategories: {
+			...books.merchantCategories,
+			[key]: category
+		}
+	}, {
+		kind: "merchant",
+		key,
+		previous,
+		name,
+		previousMeta: books.ruleMeta?.[key] ?? null,
+		previousFrozen: books.ruleFrozen?.[key] ?? null
+	});
+}
+function clearLineCategory(books, id, name) {
+	const previous = books.txnCategories[id] ?? null;
+	if (!previous) return books;
+	const txnCategories = { ...books.txnCategories };
+	delete txnCategories[id];
+	return withUndo({
+		...books,
+		txnCategories
+	}, {
+		kind: "line",
+		id,
+		previous,
+		name
+	});
+}
+function clearMerchantRule(books, key, name) {
+	const previous = books.merchantCategories[key] ?? null;
+	if (!previous) return books;
+	const merchantCategories = { ...books.merchantCategories };
+	delete merchantCategories[key];
+	const previousMeta = books.ruleMeta?.[key] ?? null;
+	const previousFrozen = books.ruleFrozen?.[key] ?? null;
+	const ruleMeta = { ...books.ruleMeta ?? {} };
+	delete ruleMeta[key];
+	const ruleFrozen = { ...books.ruleFrozen ?? {} };
+	delete ruleFrozen[key];
+	return withUndo({
+		...books,
+		merchantCategories,
+		ruleMeta,
+		ruleFrozen
+	}, {
+		kind: "merchant",
+		key,
+		previous,
+		name,
+		previousMeta,
+		previousFrozen
+	});
+}
+function applySplit(books, id, entry, name) {
+	const splits = books.txnSplits ?? {};
+	const previous = splits[id] ?? null;
+	return withUndo({
+		...books,
+		txnSplits: {
+			...splits,
+			[id]: entry
+		}
+	}, {
+		kind: "split",
+		id,
+		previous,
+		name
+	});
+}
+function clearSplit(books, id, name) {
+	const splits = books.txnSplits ?? {};
+	const previous = splits[id] ?? null;
+	if (!previous) return books;
+	const txnSplits = { ...splits };
+	delete txnSplits[id];
+	return withUndo({
+		...books,
+		txnSplits
+	}, {
+		kind: "split",
+		id,
+		previous,
+		name
+	});
+}
+/** Move a split from a vanished charge id to its new id. Not an undo entry. */
+function reattachSplit(books, fromId, toId, entry) {
+	const txnSplits = { ...books.txnSplits ?? {} };
+	delete txnSplits[fromId];
+	txnSplits[toId] = entry;
+	return {
+		...books,
+		txnSplits
+	};
+}
+function undoCategoryAt(books, index) {
+	const entry = books.categoryUndos[index];
+	if (!entry) return books;
+	const categoryUndos = books.categoryUndos.filter((_, item) => item !== index);
+	if (entry.kind === "split") {
+		const txnSplits = { ...books.txnSplits ?? {} };
+		if (entry.previous) txnSplits[entry.id] = entry.previous;
+		else delete txnSplits[entry.id];
+		return {
+			...books,
+			txnSplits,
+			categoryUndos
+		};
+	}
+	if (entry.kind === "line") {
+		const txnCategories = { ...books.txnCategories };
+		if (entry.previous) txnCategories[entry.id] = entry.previous;
+		else delete txnCategories[entry.id];
+		return {
+			...books,
+			txnCategories,
+			categoryUndos
+		};
+	}
+	if (entry.kind === "bulk") return {
+		...books,
+		txnCategories: {
+			...books.txnCategories,
+			...entry.edits
+		},
+		categoryUndos
+	};
+	const merchantCategories = { ...books.merchantCategories };
+	if (entry.previous) merchantCategories[entry.key] = entry.previous;
+	else delete merchantCategories[entry.key];
+	const ruleMeta = { ...books.ruleMeta ?? {} };
+	if (entry.previousMeta) ruleMeta[entry.key] = entry.previousMeta;
+	else delete ruleMeta[entry.key];
+	const ruleFrozen = { ...books.ruleFrozen ?? {} };
+	if (entry.previousFrozen) ruleFrozen[entry.key] = entry.previousFrozen;
+	else delete ruleFrozen[entry.key];
+	return {
+		...books,
+		merchantCategories,
+		ruleMeta,
+		ruleFrozen,
+		categoryUndos
+	};
+}
+function booksOf(state) {
+	return {
+		merchantCategories: state.merchantCategories,
+		txnCategories: state.txnCategories,
+		categoryUndos: state.categoryUndos,
+		txnSplits: state.txnSplits,
+		ruleMeta: state.ruleMeta,
+		ruleFrozen: state.ruleFrozen,
+		txnEditedAt: state.txnEditedAt
+	};
+}
+var useLinenPrefs = create()(persist((set, get) => ({
+	hydrated: false,
+	budgets: {},
+	budgetRevision: 0,
+	merchantCategories: {},
+	txnCategories: {},
+	categoryUndos: [],
+	txnSplits: {},
+	ruleMeta: {},
+	ruleFrozen: {},
+	txnEditedAt: {},
+	goalTargets: {},
+	goalSteps: {},
+	snapshots: [],
+	setHydrated: () => set({ hydrated: true }),
+	setBudget: (id, amount) => {
+		const next = Math.max(0, Math.round(amount));
+		const budgets = { ...get().budgets };
+		if (next <= 0) delete budgets[id];
+		else budgets[id] = next;
+		set({ budgets });
+	},
+	setBudgets: (budgets) => set({ budgets }),
+	setBudgetRevision: (revision) => set({ budgetRevision: revision }),
+	setMerchantCategory: (key, category, name) => set(applyMerchantCategory(booksOf(get()), key, category, name)),
+	clearMerchantCategory: (key, name) => set(clearMerchantRule(booksOf(get()), key, name)),
+	setTxnCategory: (id, category, name) => set(applyLineCategory(booksOf(get()), id, category, name)),
+	clearTxnCategory: (id, name) => set(clearLineCategory(booksOf(get()), id, name)),
+	setGoalTarget: (id, amount) => {
+		const goalTargets = { ...get().goalTargets };
+		if (amount && amount > 0) goalTargets[id] = Math.round(amount);
+		else delete goalTargets[id];
+		set({ goalTargets });
+	},
+	toggleGoalStep: (key) => {
+		const goalSteps = { ...get().goalSteps };
+		if (goalSteps[key]) delete goalSteps[key];
+		else goalSteps[key] = true;
+		set({ goalSteps });
+	},
+	setMerchantRule: (key, category, name, scope, frozen) => set(applyMerchantRule(booksOf(get()), key, category, name, scope, frozen)),
+	clearLineEdits: (ids, name) => set(clearLineEdits(booksOf(get()), ids, name)),
+	setSplit: (id, entry, name) => set(applySplit(booksOf(get()), id, entry, name)),
+	clearSplit: (id, name) => set(clearSplit(booksOf(get()), id, name)),
+	reattachSplit: (fromId, toId, entry) => set(reattachSplit(booksOf(get()), fromId, toId, entry)),
+	undoCategory: (index) => {
+		const current = booksOf(get());
+		set(undoCategoryAt(current, index ?? current.categoryUndos.length - 1));
+	},
+	rememberNetWorth: (net, date) => {
+		const rounded = Math.round(net * 100) / 100;
+		const existing = get().snapshots.find((point) => point.date === date);
+		if (existing && existing.net === rounded) return;
+		set({ snapshots: [...get().snapshots.filter((point) => point.date !== date), {
+			date,
+			net: rounded
+		}].slice(-120) });
+	}
+}), {
+	name: "linen-prefs-v1",
+	partialize: (state) => ({
+		budgets: state.budgets,
+		budgetRevision: state.budgetRevision,
+		merchantCategories: state.merchantCategories,
+		txnCategories: state.txnCategories,
+		categoryUndos: state.categoryUndos,
+		txnSplits: state.txnSplits,
+		ruleMeta: state.ruleMeta,
+		ruleFrozen: state.ruleFrozen,
+		txnEditedAt: state.txnEditedAt,
+		goalTargets: state.goalTargets,
+		goalSteps: state.goalSteps,
+		snapshots: state.snapshots
+	}),
+	onRehydrateStorage: () => (state) => {
+		state?.setHydrated();
+	}
+}));
+var CATEGORY_COLOR = {
+	groceries: "#5fae7d",
+	dining: "#4a9268",
+	transport: "#b06f84",
+	fuel: "#c98a9e",
+	cigarettes: "#c4694d",
+	shopping: "#df7a5e",
+	subscriptions: "#3f9e9f",
+	personal: "#ddaab9",
+	health: "#b3a9d6",
+	housing: "#6b84ad",
+	household: "#e8a088",
+	utilities: "#8fa3c4",
+	entertainment: "#7a6fb0",
+	travel: "#e0c48a",
+	services: "#7cbcbd",
+	insurance: "#9488c4",
+	fees: "#b08a72",
+	other: "#d1a75a",
+	income: "#5fae7d",
+	transfer: "#9a8e80",
+	investing: "#b8913f"
+};
+function categoryColor(id) {
+	return CATEGORY_COLOR[id] ?? "#9a8e80";
+}
+var ICONS = {
+	groceries: Apple,
+	dining: Utensils,
+	transport: Car,
+	fuel: Fuel,
+	cigarettes: Cigarette,
+	shopping: ShoppingBag,
+	subscriptions: Cpu,
+	personal: Scissors,
+	health: HeartPulse,
+	housing: House,
+	household: Sofa,
+	utilities: Zap,
+	entertainment: Clapperboard,
+	travel: Plane,
+	services: Shirt,
+	insurance: Shield,
+	fees: Receipt,
+	other: CircleHelp,
+	income: BadgeDollarSign,
+	transfer: ArrowLeftRight,
+	investing: Landmark
+};
+function CategoryMark({ category, tone = "spend", compact = false, tiny = false }) {
+	const color = categoryColor(category);
+	const Icon = ICONS[category];
+	const toneStyle = tone === "quiet" ? {
+		background: "#e7e0d6",
+		color: "#6e655c"
+	} : {
+		background: `${color}22`,
+		color
+	};
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+		className: `grid shrink-0 place-items-center rounded-sm ${tiny ? "size-6" : compact ? "size-8" : "size-10"}`,
+		style: toneStyle,
+		"aria-hidden": "true",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Icon, {
+			className: tiny ? "size-3" : compact ? "size-3.5" : "size-4",
+			strokeWidth: 1.75
+		})
+	});
+}
+var TABS = [{
+	id: "home",
+	label: "Home",
+	icon: House,
+	color: "#6b84ad"
+}, {
+	id: "activity",
+	label: "Activity",
+	icon: Receipt,
+	color: "#df7a5e"
+}];
+function sumClass(accounts, klass) {
+	return accounts.filter((account) => account.class === klass).reduce((sum, account) => sum + account.currentBalance, 0);
+}
+function netWorth(accounts) {
+	return sumClass(accounts, "cash") + sumClass(accounts, "investment") - sumClass(accounts, "liability");
+}
+var chartTip = {
+	background: "#f4efe6",
+	border: "1px solid #e4d9cc",
+	borderRadius: 8,
+	fontSize: 12,
+	color: "#2c241c"
+};
+function axisTick(value) {
+	return compactMoney(value);
+}
+function signedPercent(value) {
+	const pct = Math.abs(value * 100);
+	const text = pct >= 10 ? pct.toFixed(0) : pct.toFixed(1);
+	if (value > 5e-4) return `+${text}%`;
+	if (value < -5e-4) return `−${text}%`;
+	return "0%";
+}
+function toneFor(category) {
+	if (category === "income") return "in";
+	if (category === "transfer" || category === "investing") return "quiet";
+	return "spend";
+}
+function banksDate(iso) {
+	const d = new Date(iso);
+	if (!Number.isFinite(d.getTime())) return "";
+	return d.toLocaleDateString("en-US", {
+		month: "short",
+		day: "numeric"
+	});
+}
+function syncedLabel(iso) {
+	if (!iso) return "Waiting for a sync";
+	const then = new Date(iso).getTime();
+	if (!Number.isFinite(then)) return "Synced";
+	const minutes = Math.round((Date.now() - then) / 6e4);
+	if (minutes < 2) return "Synced just now";
+	if (minutes < 60) return `Synced ${minutes}m ago`;
+	const hours = Math.round(minutes / 60);
+	if (hours < 36) return `Synced ${hours}h ago`;
+	return `Synced ${Math.round(hours / 24)}d ago`;
+}
+function LinenApp() {
+	const queryClient = useQueryClient();
+	const [pull, setPull] = (0, import_react.useState)("hold");
+	const query = useQuery({
+		queryKey: ["linen-finance"],
+		queryFn: async () => {
+			const data = await loadFinance();
+			writeSnapshotCache(data);
+			return data;
+		},
+		enabled: pull === "load",
+		staleTime: Infinity,
+		refetchOnMount: false,
+		refetchOnWindowFocus: false,
+		refetchOnReconnect: false
+	});
+	(0, import_react.useEffect)(() => {
+		if (navigationIsReload()) {
+			setPull("load");
+			return;
+		}
+		const cached = readSnapshotCache();
+		if (cached) {
+			queryClient.setQueryData(["linen-finance"], cached);
+			return;
+		}
+		setPull("load");
+	}, [queryClient]);
+	const waiting = query.data?.ok === false && query.data.pending === true;
+	const connectorWait = useRefetchWhenReady(waiting, () => {
+		query.refetch();
+	});
+	const [tab, setTab] = (0, import_react.useState)("home");
+	const [refreshed, setRefreshed] = (0, import_react.useState)(false);
+	const [month, setMonth] = (0, import_react.useState)(currentMonthKey);
+	const hydrated = useLinenPrefs((state) => state.hydrated);
+	const budgets = useLinenPrefs((state) => state.budgets);
+	const merchantCategories = useLinenPrefs((state) => state.merchantCategories);
+	const txnCategories = useLinenPrefs((state) => state.txnCategories);
+	const txnSplits = useLinenPrefs((state) => state.txnSplits);
+	const ruleMeta = useLinenPrefs((state) => state.ruleMeta);
+	const ruleFrozen = useLinenPrefs((state) => state.ruleFrozen);
+	const rememberNetWorth = useLinenPrefs((state) => state.rememberNetWorth);
+	const setBudget = useLinenPrefs((state) => state.setBudget);
+	const setBudgets = useLinenPrefs((state) => state.setBudgets);
+	const budgetRevision = useLinenPrefs((state) => state.budgetRevision);
+	const setBudgetRevision = useLinenPrefs((state) => state.setBudgetRevision);
+	const snapshot = query.data?.ok ? query.data : null;
+	const labeled = (0, import_react.useMemo)(() => labelAll(snapshot?.transactions ?? [], hydrated ? merchantCategories : {}, hydrated ? txnCategories : {}, hydrated ? txnSplits : {}, hydrated ? {
+		meta: ruleMeta,
+		frozen: ruleFrozen
+	} : {}), [
+		snapshot,
+		merchantCategories,
+		txnCategories,
+		txnSplits,
+		ruleMeta,
+		ruleFrozen,
+		hydrated
+	]);
+	const net = netWorth(snapshot?.accounts ?? []);
+	(0, import_react.useEffect)(() => {
+		if (!hydrated || !snapshot) return;
+		rememberNetWorth(net, todayIso());
+	}, [
+		hydrated,
+		snapshot,
+		net,
+		rememberNetWorth
+	]);
+	(0, import_react.useEffect)(() => {
+		if (!hydrated || !snapshot) return;
+		if (budgetRevision >= 4) return;
+		setBudgets({
+			housing: 1450,
+			groceries: 420,
+			subscriptions: 30,
+			insurance: 120,
+			fees: 20,
+			shopping: 150,
+			dining: 130,
+			cigarettes: 0,
+			entertainment: 30,
+			services: 35,
+			utilities: 160,
+			health: 0,
+			transport: 50,
+			fuel: 90,
+			other: 25,
+			personal: 40
+		});
+		setBudgetRevision(4);
+	}, [
+		hydrated,
+		snapshot,
+		budgetRevision,
+		labeled,
+		month,
+		setBudgets,
+		setBudgetRevision
+	]);
+	const failure = query.data && query.data.ok === false ? classifyLoadError(query.data) : null;
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "min-h-dvh bg-paper text-ink",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("main", {
+			className: "mx-auto w-full max-w-lg px-5 pt-safe-top pb-safe-nav",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("header", { children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "h-40 overflow-hidden",
+						style: {
+							width: "100vw",
+							marginLeft: "calc(50% - 50vw)",
+							marginTop: "calc(-1.25rem - env(safe-area-inset-top))"
+						},
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+							src: "/header.png",
+							alt: "Liněn",
+							className: "block h-full w-full max-w-none origin-center scale-125 object-cover object-center"
+						})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "mt-3 flex items-center justify-between gap-3",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "text-sm text-muted",
+							children: snapshot ? syncedLabel(snapshot.syncedAt) : "Personal finance"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+							type: "button",
+							className: "inline-flex min-h-11 items-center gap-1.5 text-sm text-ink",
+							"aria-label": "Refresh",
+							onClick: () => {
+								setRefreshed(true);
+								setPull("load");
+								query.refetch();
+							},
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(RefreshCw, {
+								className: `size-4 ${query.isFetching ? "animate-spin" : ""}`,
+								strokeWidth: 1.75
+							}), "Refresh"]
+						})]
+					}),
+					snapshot?.banksSyncedAt ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+						className: "text-xs text-muted",
+						children: ["Banks updated ", banksDate(snapshot.banksSyncedAt)]
+					}) : null,
+					refreshed ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "mt-1 text-xs text-muted",
+						children: query.isFetching ? "Updating the saved snapshot…" : snapshot?.liveSources?.length ? `${snapshot.liveSources.join(", ")} updated live. Banks stay as of the last sync. Budget limits and category edits on this phone stay put.` : "Updated from the latest saved snapshot. Budget limits and category edits on this phone stay put."
+					}) : null
+				] }),
+				snapshot?.connections.some((connection) => connection.status !== "active") ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+					className: "mt-4 rounded-lg border border-line bg-clay-soft px-4 py-3 text-sm text-clay",
+					children: [
+						snapshot.connections.filter((connection) => connection.status !== "active").map((connection) => connection.institutionName).join(", "),
+						" ",
+						"needs a fresh sync."
+					]
+				}) : null,
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "mt-6",
+					children: query.isPending && !query.data ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(LoadingState, {}) : snapshot ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Loaded, {
+						tab,
+						month,
+						setMonth,
+						snapshot,
+						labeled,
+						budgets: hydrated ? budgets : {},
+						net,
+						onBudget: setBudget,
+						onSuggest: (next) => setBudgets({
+							...budgets,
+							...next
+						}),
+						onTab: (next) => {
+							setTab(next);
+							window.scrollTo(0, 0);
+						}
+					}) }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(StatusState, {
+						title: waiting ? connectorWait === "timed_out" ? "Still connecting" : "Pulling your accounts" : "Accounts are unavailable",
+						body: waiting ? "Liněn is loading your snapshot. This usually takes a moment." : failure?.message ?? "Check src/lib/finance/demo-snapshot.ts (or your own snapshot), then refresh.",
+						onRetry: () => void query.refetch()
+					})
+				}),
+				snapshot && snapshot.warnings.length > 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "mt-6 text-sm text-muted",
+					children: snapshot.warnings[0]
+				}) : null
+			]
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("nav", {
+			className: "fixed inset-x-0 bottom-0 z-30 border-t border-line bg-paper",
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "mx-auto flex max-w-lg pb-[max(1rem,env(safe-area-inset-bottom))]",
+				children: TABS.map((item) => {
+					const Icon = item.icon;
+					const active = tab === item.id;
+					return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+						type: "button",
+						className: "flex min-h-14 flex-1 flex-col items-center justify-center gap-1 text-xs",
+						style: { color: active ? item.color : "#95897c" },
+						"aria-current": active ? "page" : void 0,
+						onClick: () => {
+							setTab(item.id);
+							window.scrollTo(0, 0);
+						},
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Icon, {
+							className: "size-5",
+							strokeWidth: active ? 2 : 1.75
+						}), item.label]
+					}, item.id);
+				})
+			})
+		})]
+	});
+}
+function LoadingState() {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "space-y-4",
+		"aria-busy": "true",
+		"aria-label": "Loading accounts",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "h-28 animate-pulse rounded-xl bg-line" }),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "grid grid-cols-2 gap-3",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "h-20 animate-pulse rounded-xl bg-line" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "h-20 animate-pulse rounded-xl bg-line" })]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "h-40 animate-pulse rounded-xl bg-line" })
+		]
+	});
+}
+function StatusState({ title, body, onRetry }) {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+		className: "card p-4",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
+				className: "font-display text-3xl leading-tight",
+				children: title
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "mt-2 text-sm text-pretty text-muted",
+				children: body
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+				type: "button",
+				className: "mt-4 min-h-11 rounded-sm bg-ink px-4 text-sm font-medium text-sheet",
+				onClick: onRetry,
+				children: "Try again"
+			})
+		]
+	});
+}
+function Loaded({ tab, month, setMonth, snapshot, labeled, budgets, net, onBudget, onSuggest, onTab }) {
+	if (tab === "activity") return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Activity, {
+		month,
+		setMonth,
+		labeled,
+		accounts: snapshot.accounts
+	});
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Home$1, {
+		month,
+		setMonth,
+		labeled,
+		accounts: snapshot.accounts,
+		holdings: snapshot.holdings,
+		extraSavings: snapshot.extraSavings,
+		budgets,
+		net,
+		onGoals: () => onTab("home")
+	});
+}
+function addDays(iso, days) {
+	const [year, month, day] = iso.slice(0, 10).split("-").map(Number);
+	const date = new Date(year ?? 2026, (month ?? 1) - 1, day ?? 1);
+	date.setDate(date.getDate() + days);
+	const nextMonth = String(date.getMonth() + 1).padStart(2, "0");
+	const nextDay = String(date.getDate()).padStart(2, "0");
+	return `${date.getFullYear()}-${nextMonth}-${nextDay}`;
+}
+var BANK_HOLIDAYS = /* @__PURE__ */ new Set([
+	"2026-01-01",
+	"2026-01-19",
+	"2026-02-16",
+	"2026-05-25",
+	"2026-06-19",
+	"2026-07-03",
+	"2026-09-07",
+	"2026-10-12",
+	"2026-11-11",
+	"2026-11-26",
+	"2026-12-25",
+	"2027-01-01",
+	"2027-01-18",
+	"2027-02-15",
+	"2027-05-31",
+	"2027-06-18",
+	"2027-07-05",
+	"2027-09-06",
+	"2027-10-11",
+	"2027-11-11",
+	"2027-11-25",
+	"2027-12-24"
+]);
+function isoFromDate(date) {
+	const month = String(date.getMonth() + 1).padStart(2, "0");
+	const day = String(date.getDate()).padStart(2, "0");
+	return `${date.getFullYear()}-${month}-${day}`;
+}
+function isBusinessDay(date) {
+	const day = date.getDay();
+	return day !== 0 && day !== 6 && !BANK_HOLIDAYS.has(isoFromDate(date));
+}
+function precedingBusinessDay(iso) {
+	const [year, month, day] = iso.split("-").map(Number);
+	const date = new Date(year ?? 2026, (month ?? 1) - 1, day ?? 1);
+	while (!isBusinessDay(date)) date.setDate(date.getDate() - 1);
+	return isoFromDate(date);
+}
+function addBusinessDays(iso, count) {
+	const [year, month, day] = iso.split("-").map(Number);
+	const date = new Date(year ?? 2026, (month ?? 1) - 1, day ?? 1);
+	let left = count;
+	while (left > 0) {
+		date.setDate(date.getDate() + 1);
+		if (isBusinessDay(date)) left -= 1;
+	}
+	return isoFromDate(date);
+}
+function monthsTouched(start, end) {
+	const months = [];
+	let cursor = start.slice(0, 7);
+	const last = end.slice(0, 7);
+	while (cursor <= last) {
+		months.push(cursor);
+		const [year, month] = cursor.split("-").map(Number);
+		cursor = isoFromDate(new Date(year ?? 2026, month ?? 1, 1)).slice(0, 7);
+	}
+	return months;
+}
+/** Your schedule: rent merchant, paycheck merchant. Edit to match your own data. */
+var RENT_PATTERN = /\brent\b|apartments|property management/i;
+var PAYCHECK_PATTERN = /payroll|paycheck|direct dep/i;
+function paydaysInRange(start, end) {
+	const dates = [];
+	for (const month of monthsTouched(start, end)) for (const day of [5, 20]) {
+		const paid = precedingBusinessDay(`${month}-${String(day).padStart(2, "0")}`);
+		if (paid >= start && paid <= end) dates.push(paid);
+	}
+	return dates;
+}
+function rentClearDate(month) {
+	return addBusinessDays(`${month}-03`, 2);
+}
+function rentClearsInRange(start, end) {
+	const dates = [];
+	for (const month of monthsTouched(start, end)) {
+		const clears = rentClearDate(month);
+		if (clears >= start && clears <= end) dates.push(clears);
+	}
+	return dates;
+}
+function nextRentClear(fromIso) {
+	const month = fromIso.slice(0, 7);
+	const clears = rentClearDate(month);
+	if (clears >= fromIso) return clears;
+	const [year, monthNumber] = month.split("-").map(Number);
+	return rentClearDate(isoFromDate(new Date(year ?? 2026, monthNumber ?? 1, 1)).slice(0, 7));
+}
+function Upcoming({ labeled }) {
+	const today = todayIso();
+	const [picked, setPicked] = (0, import_react.useState)(null);
+	const recurring = findRecurring(labeled).filter((item) => item.nextDate >= today).filter((item) => !RENT_PATTERN.test(item.merchant) && !PAYCHECK_PATTERN.test(item.merchant));
+	const pays = labeled.filter((txn) => txn.category === "income" && txn.amount > 1500).sort((a, b) => a.date.localeCompare(b.date));
+	const lastPay = pays[pays.length - 1];
+	const rents = labeled.filter((txn) => txn.amount < 0 && RENT_PATTERN.test(`${txn.merchant} ${txn.rawName}`)).sort((a, b) => a.date.localeCompare(b.date));
+	const lastRent = rents[rents.length - 1];
+	const weekStart = (() => {
+		const [year, month, day] = today.split("-").map(Number);
+		const date = new Date(year ?? 2026, (month ?? 1) - 1, day ?? 1);
+		date.setDate(date.getDate() - date.getDay());
+		return isoFromDate(date);
+	})();
+	const days = Array.from({ length: 28 }, (_, index) => addDays(weekStart, index));
+	const lastDay = days[days.length - 1] ?? today;
+	const events = [...[...paydaysInRange(today, lastDay).map((date) => ({
+		key: `pay-${date}`,
+		name: "Paycheck",
+		date,
+		amount: lastPay?.amount ?? 0,
+		income: true
+	})), ...rentClearsInRange(today, lastDay).map((date) => ({
+		key: `rent-${date}`,
+		name: "Rent",
+		date,
+		amount: lastRent ? -Math.abs(lastRent.amount) : 0,
+		income: false
+	}))], ...recurring.map((item) => ({
+		key: item.merchantKey,
+		name: item.merchant,
+		date: item.nextDate,
+		amount: -Math.abs(item.amount),
+		income: false
+	}))].filter((item) => item.date >= today && item.date <= lastDay).sort((a, b) => a.date.localeCompare(b.date) || a.name.localeCompare(b.name));
+	const marks = new Set(events.map((item) => item.date));
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", { children: [
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+			className: "section-title",
+			children: "Coming up"
+		}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+			className: "mt-1 text-sm text-muted",
+			children: [
+				formatShort(days[0] ?? today),
+				" – ",
+				formatShort(lastDay),
+				". Tap a day."
+			]
+		}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "mt-3 grid grid-cols-7 gap-y-1 text-center text-xs",
+			children: [[
+				"S",
+				"M",
+				"T",
+				"W",
+				"T",
+				"F",
+				"S"
+			].map((day, index) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+				className: "text-faint",
+				children: day
+			}, `${day}-${index}`)), days.map((iso) => {
+				const date = /* @__PURE__ */ new Date(`${iso}T12:00:00`);
+				const marked = marks.has(iso);
+				const active = picked === iso;
+				const monthStart = date.getDate() === 1;
+				return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+					type: "button",
+					onPointerDown: (event) => event.preventDefault(),
+					onClick: () => setPicked((current) => current === iso ? null : iso),
+					className: "flex flex-col items-center gap-0.5",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "h-3 text-[9px] uppercase leading-none text-faint",
+						children: monthStart ? date.toLocaleDateString("en-US", { month: "short" }) : ""
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: `grid size-8 place-items-center rounded-full ${active ? "bg-ink font-semibold text-sheet" : marked ? "border-2 border-ink font-semibold text-ink" : iso === today ? "border border-line font-medium text-ink" : "text-muted"}`,
+						children: date.getDate()
+					})]
+				}, iso);
+			})]
+		}),
+		events.length > 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("ul", {
+			className: "mt-3 divide-y divide-line",
+			children: events.map((item) => {
+				const hot = picked === item.date;
+				return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("li", {
+					className: `flex items-baseline justify-between gap-3 py-2 ${hot ? "font-semibold" : ""} ${picked !== null && !hot ? "opacity-35" : ""}`,
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "min-w-0",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "truncate text-sm",
+							children: item.name
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "text-xs text-muted",
+							children: formatShort(item.date)
+						})]
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: `text-sm tabular-nums ${item.income ? "text-[#4a9268]" : "text-ink"}`,
+						children: item.income ? signedMoney(item.amount) : money(Math.abs(item.amount), 0)
+					})]
+				}, `${item.key}-${item.date}`);
+			})
+		}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+			className: "mt-3 text-sm text-muted",
+			children: "Nothing due in these four weeks."
+		})
+	] });
+}
+function MonthBar({ month, setMonth, compact = false }) {
+	const current = currentMonthKey();
+	const earliest = shiftMonth(current, -4);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "flex items-center justify-between",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+				type: "button",
+				className: `grid place-items-center rounded-sm text-ink disabled:text-faint ${compact ? "size-8" : "size-11"}`,
+				"aria-label": "Previous month",
+				disabled: month <= earliest,
+				onClick: () => setMonth(shiftMonth(month, -1)),
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronLeft, {
+					className: "size-5",
+					strokeWidth: 1.75
+				})
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "font-display text-xl text-ink",
+				children: formatMonth(month)
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+				type: "button",
+				className: `grid place-items-center rounded-sm text-ink disabled:text-faint ${compact ? "size-8" : "size-11"}`,
+				"aria-label": "Next month",
+				disabled: month >= current,
+				onClick: () => setMonth(shiftMonth(month, 1)),
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronRight, {
+					className: "size-5",
+					strokeWidth: 1.75
+				})
+			})
+		]
+	});
+}
+function Home$1({ month, setMonth, labeled, accounts, holdings, budgets, net, onGoals, extraSavings }) {
+	const [selected, setSelected] = (0, import_react.useState)(null);
+	const [openBucket, setOpenBucket] = (0, import_react.useState)(null);
+	const [flowView, setFlowView] = (0, import_react.useState)("month");
+	const cash = sumClass(accounts, "cash");
+	const invested = sumClass(accounts, "investment");
+	const debt = sumClass(accounts, "liability");
+	const income = monthIncome(labeled, month);
+	const spent = monthSpend(labeled, month);
+	const months = recentMonths(month, 3);
+	const flows = flowView === "quarter" ? quarterFlows(labeled, month) : flowByMonth(labeled, months);
+	const rate = savingsRate(flows.reduce((sum, row) => sum + row.income, 0), flows.reduce((sum, row) => sum + row.spend, 0));
+	const priorSpend = flows[flows.length - 2]?.spend ?? 0;
+	priorSpend > 0 && (spent - priorSpend) / priorSpend;
+	const summary = rollupAccounts(accounts.filter((account) => Math.abs(account.currentBalance) >= .5));
+	const book = openGain(holdings);
+	const merchants = topMerchants(labeled, month).slice(0, 4);
+	const today = todayIso();
+	const recurring = findRecurring(labeled).map((item) => RENT_PATTERN.test(item.merchant) ? {
+		...item,
+		nextDate: nextRentClear(today)
+	} : item).slice(0, 4);
+	const recent = labeled.filter((txn) => txn.date.startsWith(month)).slice(0, 6);
+	const budgetTotal = Object.values(budgets).reduce((sum, value) => sum + value, 0);
+	const spentAgainstBudget = BUDGET_CATEGORIES.reduce((sum, category) => {
+		if ((budgets[category.id] ?? 0) <= 0) return sum;
+		return sum + Math.max(0, categorySpend(labeled, month, category.id));
+	}, 0);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "linen-rise space-y-8",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", { children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "text-sm text-muted",
+					children: "Net worth"
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "font-display text-4xl leading-none tabular-nums tracking-tight",
+					children: money(net)
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+					className: "mt-2 text-sm text-muted",
+					children: [
+						compactMoney(cash),
+						" cash · ",
+						compactMoney(invested),
+						" invested",
+						debt > 0 ? ` · ${compactMoney(debt)} debt` : "",
+						book ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
+							" ",
+							"· brokerage open",
+							" ",
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+								className: book.gain >= 0 ? "text-sage" : "text-clay",
+								children: [
+									signedMoney(book.gain),
+									" (",
+									signedPercent(book.percent),
+									")"
+								]
+							})
+						] }) : null
+					]
+				})
+			] }),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(FullKitCard, {}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", { children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+					className: "section-title",
+					children: "Accounts"
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "mt-1 text-sm text-muted",
+					children: "Tap a group to see the accounts inside it."
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "mt-2 divide-y divide-line",
+					children: summary.map((group) => {
+						const open = openBucket === group.name;
+						return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+							type: "button",
+							className: "flex min-h-11 w-full items-center justify-between gap-3 py-2 text-left",
+							"aria-expanded": open,
+							onClick: () => setOpenBucket(open ? null : group.name),
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "text-sm font-medium",
+								children: group.name
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "text-sm tabular-nums",
+								children: money(group.total, 0)
+							})]
+						}), open ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("ul", {
+							className: "pb-2",
+							children: group.accounts.map((account) => {
+								const gain = account.class === "investment" ? openGain(holdings, account.id) : null;
+								return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("li", {
+									className: "flex items-baseline justify-between gap-3 py-1.5 pl-3",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "min-w-0",
+										children: [
+											/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+												className: "truncate text-sm",
+												children: account.name
+											}),
+											/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+												className: "text-xs text-muted",
+												children: [account.institutionName, account.mask ? ` ···${account.mask}` : ""]
+											}),
+											gain ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+												className: `text-xs tabular-nums ${gain.gain >= 0 ? "text-sage" : "text-clay"}`,
+												children: [
+													"Open ",
+													signedMoney(gain.gain),
+													" · ",
+													signedPercent(gain.percent)
+												]
+											}) : null
+										]
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+										className: "text-sm tabular-nums",
+										children: money(account.currentBalance, 0)
+									})]
+								}, account.id);
+							})
+						}) : null] }, group.name);
+					})
+				})
+			] }),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", { children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+					className: "section-title",
+					children: "Income and spending"
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+					className: "mt-1 text-sm text-muted",
+					children: [
+						flowView === "quarter" ? "By quarter." : `${formatMonth(months[0] ?? month)} through ${formatMonth(month)}.`,
+						"Tap a bar for the amount. July and August include the old checking account.",
+						rate !== null && rate >= 0 ? ` Saved ${Math.round(rate * 100)}% of income.` : "",
+						rate !== null && rate < 0 ? " Spent more than the income that landed in these accounts." : ""
+					]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "mt-3 flex items-center justify-between gap-3",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "flex gap-4 text-xs text-muted",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+							className: "inline-flex items-center gap-1.5",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "size-2 rounded-full bg-sage" }), " Income"]
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+							className: "inline-flex items-center gap-1.5",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "size-2 rounded-full bg-clay" }), " Spending"]
+						})]
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "flex gap-2 text-xs",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+							type: "button",
+							className: flowView === "month" ? "text-ink" : "text-faint",
+							onClick: () => setFlowView("month"),
+							children: "Monthly"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+							type: "button",
+							className: flowView === "quarter" ? "text-ink" : "text-faint",
+							onClick: () => setFlowView("quarter"),
+							children: "Quarterly"
+						})]
+					})]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "mt-2 h-48",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ResponsiveContainer, {
+						width: "100%",
+						height: "100%",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(BarChart, {
+							data: flows,
+							barGap: 4,
+							barCategoryGap: "22%",
+							margin: {
+								top: 8,
+								right: 4,
+								left: 0,
+								bottom: 0
+							},
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(XAxis, {
+									dataKey: "label",
+									axisLine: false,
+									tickLine: false,
+									tick: {
+										fill: "#6e655c",
+										fontSize: 12
+									}
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(YAxis, {
+									width: 48,
+									axisLine: false,
+									tickLine: false,
+									tick: {
+										fill: "#6e655c",
+										fontSize: 11
+									},
+									tickFormatter: axisTick
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Tooltip, {
+									cursor: false,
+									contentStyle: chartTip,
+									formatter: (value, name) => [money(Number(value), 0), name === "income" ? "Income" : "Spending"]
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Bar, {
+									dataKey: "income",
+									fill: "#5fae7d",
+									radius: [
+										2,
+										2,
+										0,
+										0
+									],
+									isAnimationActive: false
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Bar, {
+									dataKey: "spend",
+									fill: "#df7a5e",
+									radius: [
+										2,
+										2,
+										0,
+										0
+									],
+									isAnimationActive: false
+								})
+							]
+						})
+					})
+				})
+			] }),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(MonthBar, {
+				month,
+				setMonth
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+				className: "grid grid-cols-2 gap-3",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Stat, {
+					label: "Money in",
+					value: money(income, income >= 100 ? 0 : 2),
+					tone: "in"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Stat, {
+					label: "Money out",
+					value: money(spent, spent >= 100 ? 0 : 2),
+					tone: "out"
+				})]
+			}),
+			budgetTotal > 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+				className: "text-sm text-muted",
+				children: [
+					money(Math.max(0, budgetTotal - spentAgainstBudget), 0),
+					" left of",
+					" ",
+					money(budgetTotal, 0),
+					" budgeted. Transfers and investing stay out of spending."
+				]
+			}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "text-sm text-muted",
+				children: "Transfers and investing stay out of spending. Set budgets to track what’s left."
+			}),
+			merchants.length > 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", { children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+					className: "section-title",
+					children: "Biggest charges"
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "mt-1 text-sm text-muted",
+					children: "Where the money went this month."
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("ul", {
+					className: "mt-2 divide-y divide-line",
+					children: merchants.map((merchant) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("li", {
+						className: "flex items-center gap-3 py-3",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CategoryMark, { category: merchant.category }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "min-w-0 flex-1",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+									className: "truncate text-sm font-medium",
+									children: merchant.merchant
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+									className: "text-xs text-muted",
+									children: [
+										categoryName(merchant.category),
+										" · ",
+										merchant.count,
+										" ",
+										merchant.count === 1 ? "charge" : "charges"
+									]
+								})]
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+								className: "text-sm tabular-nums",
+								children: money(merchant.total, 0)
+							})
+						]
+					}, merchant.merchantKey))
+				})
+			] }) : null,
+			recurring.length > 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", { children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+					className: "section-title",
+					children: "Recurring"
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "mt-1 text-sm text-muted",
+					children: "Charges that come back on a schedule."
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("ul", {
+					className: "mt-2 divide-y divide-line",
+					children: recurring.map((item) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("li", {
+						className: "flex items-center gap-3 py-3",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CategoryMark, { category: item.category }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "min-w-0 flex-1",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+									className: "truncate text-sm font-medium",
+									children: item.merchant
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+									className: "text-xs text-muted",
+									children: [
+										item.cadence === "weekly" ? "Weekly" : "Monthly",
+										" · next ",
+										formatShort(item.nextDate)
+									]
+								})]
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+								className: "text-sm tabular-nums",
+								children: [money(item.monthly, 0), "/mo"]
+							})
+						]
+					}, item.merchantKey))
+				})
+			] }) : null,
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+				className: "section-title",
+				children: "Recent"
+			}), recent.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "mt-2 text-sm text-muted",
+				children: "Nothing posted this month yet."
+			}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TxnList, {
+				txns: recent,
+				accounts,
+				onOpen: setSelected
+			})] }),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TxnDialog, {
+				txn: selected ? labeled.find((item) => item.id === selected.id) ?? selected : null,
+				accounts,
+				labeled,
+				month,
+				onClose: () => setSelected(null)
+			})
+		]
+	});
+}
+function Activity({ month, setMonth, labeled, accounts }) {
+	const [query, setQuery] = (0, import_react.useState)("");
+	const [filter, setFilter] = (0, import_react.useState)("all");
+	const [selected, setSelected] = (0, import_react.useState)(null);
+	const searching = query.trim().length > 0;
+	const needle = query.trim().toLowerCase();
+	const filtered = labeled.filter((txn) => {
+		if (!searching && !txn.date.startsWith(month)) return false;
+		if (filter === "out" && txn.amount >= 0) return false;
+		if (filter === "in" && txn.amount <= 0) return false;
+		if (filter === "pending" && !txn.pending) return false;
+		if (!needle) return true;
+		return txn.merchant.toLowerCase().includes(needle) || txn.rawName.toLowerCase().includes(needle) || categoryName(txn.category).toLowerCase().includes(needle) || (txn.ticker ?? "").toLowerCase().includes(needle);
+	});
+	const groups = [];
+	for (const txn of filtered) {
+		const last = groups[groups.length - 1];
+		if (!last || last.day !== txn.date) groups.push({
+			day: txn.date,
+			items: [txn]
+		});
+		else last.items.push(txn);
+	}
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "space-y-4",
+		children: [
+			searching ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "text-sm text-muted",
+				children: "Searching the last four months"
+			}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Upcoming, { labeled }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(MonthBar, {
+				month,
+				setMonth
+			})] }),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("label", {
+				className: "flex min-h-11 items-center gap-2 rounded-lg border border-line bg-sheet px-3",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Search, {
+						className: "size-4 text-faint",
+						strokeWidth: 1.75
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "sr-only",
+						children: "Search transactions"
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+						value: query,
+						onChange: (event) => setQuery(event.target.value),
+						placeholder: "Merchant, category, ticker",
+						className: "h-11 w-full bg-transparent outline-none placeholder:text-faint"
+					})
+				]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "flex flex-wrap gap-2",
+				children: [
+					["all", "All"],
+					["out", "Out"],
+					["in", "In"],
+					["pending", "Pending"]
+				].map(([id, label]) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+					type: "button",
+					className: `min-h-11 rounded-sm px-3 text-sm ${filter === id ? "bg-ink text-sheet" : "border border-line bg-sheet text-ink"}`,
+					onClick: () => setFilter(id),
+					children: label
+				}, id))
+			}),
+			groups.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "text-sm text-muted",
+				children: "No transactions match."
+			}) : groups.map((group) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+				className: "text-sm text-muted",
+				children: formatDay(group.day)
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TxnList, {
+				txns: group.items,
+				accounts,
+				onOpen: setSelected
+			})] }, group.day)),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TxnDialog, {
+				txn: selected ? labeled.find((item) => item.id === selected.id) ?? selected : null,
+				accounts,
+				labeled,
+				month,
+				onClose: () => setSelected(null)
+			})
+		]
+	});
+}
+function TxnDialog({ txn, accounts, onClose }) {
+	const account = accounts.find((item) => item.id === txn?.accountId);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Dialog, {
+		open: txn !== null,
+		onOpenChange: (open) => !open && onClose(),
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(DialogPortal, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogOverlay, { className: "fixed inset-0 z-40 bg-ink/40" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogContent, {
+			className: "fixed inset-x-3 bottom-3 z-50 mx-auto max-w-lg rounded-lg border border-line bg-paper px-4 pt-4 pb-4 shadow-xl",
+			children: txn ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "flex items-start gap-3",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CategoryMark, {
+							category: txn.category,
+							tone: toneFor(txn.category)
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "min-w-0 flex-1",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogTitle, {
+								className: "font-display text-xl leading-tight",
+								children: txn.merchant
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+								className: "text-sm text-muted",
+								children: categoryName(txn.category)
+							})]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "text-lg tabular-nums",
+							children: signedMoney(txn.amount)
+						})
+					]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("dl", {
+					className: "mt-3 space-y-1 text-sm",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "flex justify-between gap-3",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("dt", {
+								className: "text-muted",
+								children: "Statement"
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("dd", {
+								className: "text-right",
+								children: txn.rawName
+							})]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "flex justify-between gap-3",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("dt", {
+								className: "text-muted",
+								children: "Date"
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("dd", { children: formatShort(txn.date) })]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "flex justify-between gap-3",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("dt", {
+								className: "text-muted",
+								children: "Account"
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("dd", { children: account ? `${account.institutionName} ···${account.mask}` : "—" })]
+						})
+					]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "mt-3 rounded-md bg-[#f7efe8] px-3 py-2 text-xs text-[#8a7d6e]",
+					children: "Recategorizing, splitting a charge, and merchant rules are in the full Liněn kit."
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogClose, {
+					className: "mt-3 h-10 w-full rounded-sm bg-ink text-sm font-medium text-paper",
+					children: "Done"
+				})
+			] }) : null
+		})] })
+	});
+}
+function FullKitCard() {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "rounded-[14px] border border-line bg-[#fffaf3] px-3.5 py-3 text-[13px]",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+			className: "text-[10px] uppercase tracking-wider text-faint",
+			children: "In the full kit"
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+			className: "mt-1",
+			children: "Budgets, Goals with rings and coaching, Wealth, split transactions and merchant rules."
+		})]
+	});
+}
+function TxnList({ txns, accounts, onOpen }) {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("ul", {
+		className: "mt-2 divide-y divide-line overflow-hidden card",
+		children: txns.map((txn) => {
+			const account = accounts.find((item) => item.id === txn.accountId);
+			return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+				type: "button",
+				className: "flex w-full items-center gap-3 py-3 text-left",
+				onClick: () => onOpen(txn),
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CategoryMark, {
+						category: txn.category,
+						tone: toneFor(txn.category)
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "min-w-0 flex-1",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+							className: "flex items-center gap-1.5 text-sm font-medium",
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "truncate",
+									children: txn.merchant
+								}),
+								txn.splits ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "shrink-0 rounded-sm bg-clay-soft px-1.5 py-px text-[10px] font-medium uppercase tracking-wide text-clay",
+									children: "Split"
+								}) : null,
+								txn.splitIssue ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "shrink-0 rounded-sm bg-gold/20 px-1.5 py-px text-[10px] font-medium uppercase tracking-wide text-gold",
+									children: "Check split"
+								}) : null
+							]
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+							className: "truncate text-xs text-muted",
+							children: [
+								txn.splits ? txn.splits.map((part) => categoryName(part.category)).join(" + ") : categoryName(txn.category),
+								txn.pending ? " · Pending" : "",
+								account ? ` · ${account.institutionName}` : ""
+							]
+						})]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: `text-sm tabular-nums ${txn.amount > 0 ? "text-sage" : txn.amount < 0 ? "text-clay" : "text-muted"}`,
+						children: signedMoney(txn.amount)
+					})
+				]
+			}) }, txn.id);
+		})
+	});
+}
+function Stat({ label, value, tone }) {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "card p-4",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+			className: "text-sm font-medium text-muted",
+			children: label
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+			className: `mt-1 font-display text-3xl tabular-nums tracking-tight ${tone === "in" ? "text-sage" : "text-clay"}`,
+			children: value
+		})]
+	});
+}
+function topMerchants(txns, month) {
+	const map = /* @__PURE__ */ new Map();
+	for (const txn of txns) {
+		if (!txn.date.startsWith(month) || !isSpending(txn)) continue;
+		const current = map.get(txn.merchantKey) ?? {
+			merchant: txn.merchant,
+			merchantKey: txn.merchantKey,
+			total: 0,
+			count: 0,
+			category: txn.category
+		};
+		current.total += spendingShare(txn);
+		current.count += 1;
+		map.set(txn.merchantKey, current);
+	}
+	return [...map.values()].sort((a, b) => b.total - a.total);
+}
+function rollupAccounts(accounts) {
+	const order = [
+		"Checking",
+		"Savings",
+		"Brokerage",
+		"Credit",
+		"Cash"
+	];
+	const map = /* @__PURE__ */ new Map();
+	for (const account of accounts) {
+		const name = account.class === "investment" ? "Brokerage" : account.class === "liability" ? "Credit" : account.subtype === "savings" ? "Savings" : account.subtype === "checking" ? "Checking" : "Cash";
+		const list = map.get(name) ?? [];
+		list.push(account);
+		map.set(name, list);
+	}
+	return [...map.entries()].map(([name, list]) => ({
+		name,
+		accounts: list.sort((a, b) => b.currentBalance - a.currentBalance),
+		total: list.reduce((sum, account) => sum + account.currentBalance, 0)
+	})).sort((a, b) => order.indexOf(a.name) - order.indexOf(b.name));
+}
+function formatShort(iso) {
+	const [year, month, day] = iso.slice(0, 10).split("-").map(Number);
+	if (!year || !month || !day) return iso;
+	return new Date(year, month - 1, day).toLocaleDateString("en-US", {
+		month: "short",
+		day: "numeric"
+	});
+}
+function Home() {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(LinenApp, {});
+}
+//#endregion
+export { Home as component };
